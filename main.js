@@ -1,4 +1,4 @@
-const sha1 = require('simple-sha1');
+import * as sha1 from 'simple-sha1';
 
 (function() {
   const tableRows = document.getElementById('table-1').rows;
