@@ -55,12 +55,15 @@ const sha1 = require('simple-sha1');
     if (champ.others != null) {
       let champAggregateWinPercent = 0;
       const originalRolePlayPercent = champ.playPercent;
+
       champ.others.forEach(playDataPairs => {
         power += (playDataPairs.winPercent - 50) * playDataPairs.playPercent;
         champ.playPercent += playDataPairs.playPercent;
       });
+
       champAggregateWinPercent =
         (champ.winPercent * originalRolePlayPercent) / champ.playPercent; // original roles winPercent
+
       champ.others.forEach(playDataPairs => {
         champAggregateWinPercent +=
           (playDataPairs.winPercent * playDataPairs.playPercent) /
@@ -69,7 +72,6 @@ const sha1 = require('simple-sha1');
       champ.winPercent = champAggregateWinPercent;
       delete champ.others;
     }
-
     champ.power = power * 10;
   });
 
@@ -92,6 +94,7 @@ const sha1 = require('simple-sha1');
     championData[champIndex].power = roundToDecimal(
       championData[champIndex].power
     ).toString();
+
     console.log(
       `${champIndex + 1} | ${championData[champIndex].name} | ${
         championData[champIndex].winPercent
