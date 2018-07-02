@@ -107,7 +107,6 @@ const sha1 = require('simple-sha1');
 
   sha1(JSON.stringify(championData), hash => {
     console.log(`Hash: sha1-${hash}`);
+    console = null;
   });
-
-  console = null;
 })();
