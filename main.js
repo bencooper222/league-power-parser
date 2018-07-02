@@ -1,4 +1,4 @@
-const sha1 = require('sha1');
+const sha1 = require('simple-sha1');
 
 (function() {
   const tableRows = document.getElementById('table-1').rows;
@@ -48,7 +48,7 @@ const sha1 = require('sha1');
       });
     }
   }
-  
+
   championData.forEach(champ => {
     let power = 0;
     power += (champ.winPercent - 50) * champ.playPercent; // first seen role power
@@ -102,6 +102,9 @@ const sha1 = require('sha1');
   }
   console.log('Rank | Name | Win% | Play% | Power');
 
-  console.log(`Hash: sha1-${sha1(JSON.stringify(championData))}`);
+  sha1(JSON.stringify(championData), hash => {
+    console.log(`Hash: sha1-${hash}`);
+  });
+
   console = null;
 })();

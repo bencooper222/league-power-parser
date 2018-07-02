@@ -12,9 +12,9 @@
     "prettier": "^1.13.7"
   },
   "dependencies": {
-    "sha1": "^1.1.1"
+    "simple-sha1": "^2.1.1"
   },
-  "scripts":{
+  "scripts": {
     "lint": "prettier --write --single-quote main.js",
     "bundle": "parcel build main.js --target browser --out-dir ./ --no-source-maps --out-file main.prod.js --experimental-scope-hoisting"
   }
