@@ -16,6 +16,7 @@
   },
   "scripts": {
     "lint": "prettier --write --single-quote main.js",
-    "bundle": "parcel build main.js --target browser --out-dir ./ --no-source-maps --out-file main.prod.js --experimental-scope-hoisting"
+    "bundle": "parcel build main.js --target browser --out-dir ./ --no-source-maps --out-file main.prod.js --experimental-scope-hoisting",
+    "listen": "parcel main.js --target browser --out-file main.dev.js --out-dir ./ --no-source-maps"
   }
 }

@@ -64,11 +64,9 @@ import * as sha1 from 'simple-sha1';
       champAggregateWinPercent =
         (champ.winPercent * originalRolePlayPercent) / champ.playPercent; // original roles winPercent
 
-      champ.others.forEach(playDataPairs => {
-        champAggregateWinPercent +=
-          (playDataPairs.winPercent * playDataPairs.playPercent) /
-          champ.playPercent;
-      });
+      champAggregateWinPercent += champ.others.reduce((acc, pair) => {
+        return acc + (pair.winPercent * pair.playPercent) / champ.playPercent;
+      }, 0);
       champ.winPercent = champAggregateWinPercent;
       delete champ.others;
     }

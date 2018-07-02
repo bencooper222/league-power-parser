@@ -59,3 +59,6 @@ typings/
 
 # parcel cache
 .cache
+
+# no dev build
+main.dev.js
