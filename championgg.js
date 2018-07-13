@@ -1,8 +1,11 @@
-import {parsePercent,roundToDecimal} from './utility.js'
+import {
+  parsePercent,
+  roundToDecimal,
+  openWebpage,
+  displayResults
+} from './utility.js';
 (function() {
-  let sum = 0;
   const tableRows = document.getElementById('table-1').rows;
- 
 
   const getDeepestChild = obj => {
     // gets the span with the champ name in it
@@ -18,7 +21,6 @@ import {parsePercent,roundToDecimal} from './utility.js'
     }
   };
 
-
   const championData = [];
   for (let rowIndex = 2; rowIndex < tableRows.length; rowIndex++) {
     const tableCells = tableRows[rowIndex].cells;
@@ -26,8 +28,7 @@ import {parsePercent,roundToDecimal} from './utility.js'
 
     const winPercent = parsePercent(tableCells[3].childNodes[1].innerHTML);
     const playPercent = parsePercent(tableCells[4].innerHTML);
-    sum+=playPercent;
-    console.log(sum);
+
     const champExistIndex = championData.findIndex(
       champ => champ.name === champName
     );
@@ -75,32 +76,6 @@ import {parsePercent,roundToDecimal} from './utility.js'
 
   championData.sort((a, b) => b.power - a.power);
 
-  window.open(
-    `https://benc.me/championgg-parser.html?data=${JSON.stringify(
-      championData.slice(0, 9)
-    )}`,
-    '_blank'
-  );
-  console.log('Rank | Name | Win% | Play% | Power');
-  for (let champIndex = 0; champIndex < championData.length; champIndex++) {
-    championData[champIndex].winPercent = roundToDecimal(
-      championData[champIndex].winPercent
-    ).toString();
-    championData[champIndex].playPercent = roundToDecimal(
-      championData[champIndex].playPercent
-    ).toString();
-    championData[champIndex].power = roundToDecimal(
-      championData[champIndex].power
-    ).toString();
-
-    console.log(
-      `${champIndex + 1} | ${championData[champIndex].name} | ${
-        championData[champIndex].winPercent
-      }%` +
-        ` | ${championData[champIndex].playPercent}%` +
-        ` | ${championData[champIndex].power}`
-    );
-  }
-  console.log('Rank | Name | Win% | Play% | Power');
-
+  openWebpage(championData);
+  displayResults(championData);
 })();
