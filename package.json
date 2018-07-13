@@ -11,10 +11,6 @@
     "parcel-bundler": "^1.9.4",
     "prettier": "^1.13.7"
   },
-  "dependencies": {
-    "restler": "^3.4.0",
-    "utility.js": "^0.1.0"
-  },
   "scripts": {
     "lint": "prettier --write --single-quote championgg.js opgg.js utility.js",
     "cgg:bundle": "parcel build championgg.js --target browser --out-dir ./ --no-source-maps --out-file championgg.prod.js --experimental-scope-hoisting",
