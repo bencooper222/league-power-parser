@@ -1,8 +1,8 @@
-import * as sha1 from 'simple-sha1';
-
+import {parsePercent,roundToDecimal} from './utility.js'
 (function() {
+  let sum = 0;
   const tableRows = document.getElementById('table-1').rows;
-  const parsePercent = percentString => parseFloat(percentString);
+ 
 
   const getDeepestChild = obj => {
     // gets the span with the champ name in it
@@ -18,7 +18,6 @@ import * as sha1 from 'simple-sha1';
     }
   };
 
-  const roundToDecimal = value => Math.round(value * 100) / 100;
 
   const championData = [];
   for (let rowIndex = 2; rowIndex < tableRows.length; rowIndex++) {
@@ -27,7 +26,8 @@ import * as sha1 from 'simple-sha1';
 
     const winPercent = parsePercent(tableCells[3].childNodes[1].innerHTML);
     const playPercent = parsePercent(tableCells[4].innerHTML);
-
+    sum+=playPercent;
+    console.log(sum);
     const champExistIndex = championData.findIndex(
       champ => champ.name === champName
     );
@@ -103,8 +103,4 @@ import * as sha1 from 'simple-sha1';
   }
   console.log('Rank | Name | Win% | Play% | Power');
 
-  sha1(JSON.stringify(championData), hash => {
-    console.log(`Hash: sha1-${hash}`);
-    console = null;
-  });
 })();

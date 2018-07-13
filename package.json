@@ -12,11 +12,13 @@
     "prettier": "^1.13.7"
   },
   "dependencies": {
-    "simple-sha1": "^2.1.1"
+    "restler": "^3.4.0",
+    "utility.js": "^0.1.0"
   },
   "scripts": {
-    "lint": "prettier --write --single-quote main.js",
-    "bundle": "parcel build main.js --target browser --out-dir ./ --no-source-maps --out-file main.prod.js --experimental-scope-hoisting",
-    "listen": "parcel main.js --target browser --out-file main.dev.js --out-dir ./ --no-source-maps"
+    "lint": "prettier --write --single-quote championgg.js opgg.js",
+    "cgg:bundle": "parcel build championgg.js --target browser --out-dir ./ --no-source-maps --out-file championgg.prod.js --experimental-scope-hoisting",
+    "cgg:listen": "parcel championgg.js --target browser --out-file championgg.dev.js --out-dir ./ --no-source-maps",
+    "opgg:listen": "parcel opgg.js --target browser --out-file opgg.dev.js --out-dir ./ --no-source-maps"
   }
 }
