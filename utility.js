@@ -40,7 +40,7 @@ const displayResults = championData => {
 
 const openWebpage = (championData, page = 'https://benc.me') => {
   window.open(
-    `${page}/championgg-parser.html?data=${JSON.stringify(
+    `${page}/leaguepower.html?data=${JSON.stringify(
       championData.slice(0, 9)
     )}`,
     '_blank'
