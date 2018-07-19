@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Parses champion.gg to get the best champions to ban.",
   "main": "main.prod.js",
-  "repository": "https://github.com/bencooper222/championgg-power-parser",
+  "repository": "https://github.com/bencooper222/league-power-parser",
   "author": "Benjamin Cooper \\\\ benc.io",
   "license": "MIT",
   "private": false,
@@ -16,6 +16,8 @@
     "cgg:bundle": "parcel build championgg.js --target browser --out-dir ./ --no-source-maps --out-file championgg.prod.js --experimental-scope-hoisting",
     "cgg:listen": "parcel championgg.js --target browser --out-file championgg.dev.js --out-dir ./ --no-source-maps",
     "opgg:listen": "parcel opgg.js --target browser --out-file opgg.dev.js --out-dir ./ --no-source-maps",
-    "opgg:bundle": "parcel build opgg.js --target browser --out-dir ./ --no-source-maps --out-file opgg.prod.js --experimental-scope-hoisting"
+    "opgg:bundle": "parcel build opgg.js --target browser --out-dir ./ --no-source-maps --out-file opgg.prod.js --experimental-scope-hoisting",
+    "ugg:listen": "parcel ugg.js --target browser --out-file ugg.dev.js --out-dir ./ --no-source-maps",
+    "ugg:bundle": "parcel build ugg.js --target browser --out-dir ./ --no-source-maps --out-file ugg.prod.js --experimental-scope-hoisting"
   }
 }
