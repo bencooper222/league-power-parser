@@ -61,5 +61,6 @@ typings/
 .cache
 
 # no dev build
-championgg.dev.js
 opgg.dev.js
+championgg.dev.js
+ugg.dev.js
