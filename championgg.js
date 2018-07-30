@@ -1,6 +1,5 @@
 import {
   parsePercent,
-  roundToDecimal,
   openWebpage,
   displayResults
 } from './utility.js';
