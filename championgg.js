@@ -1,8 +1,4 @@
-import {
-  parsePercent,
-  openWebpage,
-  displayResults
-} from './utility.js';
+import { parsePercent, openWebpage, displayResults } from './utility.js';
 (function() {
   const tableRows = document.getElementById('table-1').rows;
 

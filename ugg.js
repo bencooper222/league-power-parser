@@ -21,10 +21,11 @@ const lodashReduce = require('lodash.reduce');
         name = rowInfo.childNodes[2].getElementsByTagName('strong')[0]
           .innerHTML;
       } catch (err) {
-        return true;
+        return true; // this occurs on the last page with the emptry rows.
+        // returning true ends "some"
       }
 
-      const role = rowInfo.childNodes[1].getElementsByTagName('img')[0].src; // this gives SVG name
+      // const role = rowInfo.childNodes[1].getElementsByTagName('img')[0].src; // possibly bring back someday
       const gamesPlayed = Number(
         rowInfo.childNodes[10]
           .getElementsByTagName('span')[0]
@@ -33,7 +34,6 @@ const lodashReduce = require('lodash.reduce');
       const winPercent = parsePercent(
         rowInfo.childNodes[4].getElementsByTagName('b')[0].innerHTML
       );
-      // console.log('winPercent', winPercent);
 
       if (champData[name] == null) {
         champData[name] = {
@@ -44,8 +44,6 @@ const lodashReduce = require('lodash.reduce');
         champData[name].played += gamesPlayed;
         champData[name].won += gamesPlayed * winPercent;
       }
-      // console.log('name', name)
-      // console.log(rowInfo.childNodes[1].getElementsByTagName('img')[0]);
     });
   };
   const totalPages = Number(
@@ -55,7 +53,7 @@ const lodashReduce = require('lodash.reduce');
 
   for (let i = 0; i < totalPages; i++) {
     getAndScrapeTable();
-    nextButton.click();
+    nextButton.click(); // fuck their pagination
   }
 
   const totalGames = lodashReduce(
@@ -79,15 +77,13 @@ const lodashReduce = require('lodash.reduce');
       name: champName
     });
   });
-  
-  championDataArray.sort((a,b)=>b.power-a.power);
+
+  championDataArray.sort((a, b) => b.power - a.power);
 
   displayResults(championDataArray);
   openWebpage(championDataArray);
 
   const backButton = document.getElementsByClassName('-previous')[0]
     .childNodes[0];
-  for (let i = 0; i < totalPages; i++) backButton.click();
-
-  // getAndScrapeTable();
+  for (let i = 0; i < totalPages; i++) backButton.click(); // go back to beginning for user use
 })();
