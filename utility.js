@@ -1,5 +1,5 @@
 const parsePercent = percentString => {
-  const num = Number(percentString);
+  const num = Number(percentString.replace('%', ''));
   if (num > 1) {
     return num / 100;
   } else {

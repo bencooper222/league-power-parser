@@ -12,12 +12,15 @@
     "prettier": "^1.13.7"
   },
   "scripts": {
-    "lint": "prettier --write --single-quote championgg.js opgg.js utility.js *.md",
+    "lint": "prettier --write --single-quote championgg.js ugg.js opgg.js utility.js *.md",
     "cgg:bundle": "parcel build championgg.js --target browser --out-dir ./ --no-source-maps --out-file championgg.prod.js --experimental-scope-hoisting",
     "cgg:listen": "parcel championgg.js --target browser --out-file championgg.dev.js --out-dir ./ --no-source-maps",
     "opgg:listen": "parcel opgg.js --target browser --out-file opgg.dev.js --out-dir ./ --no-source-maps",
     "opgg:bundle": "parcel build opgg.js --target browser --out-dir ./ --no-source-maps --out-file opgg.prod.js --experimental-scope-hoisting",
     "ugg:listen": "parcel ugg.js --target browser --out-file ugg.dev.js --out-dir ./ --no-source-maps",
     "ugg:bundle": "parcel build ugg.js --target browser --out-dir ./ --no-source-maps --out-file ugg.prod.js --experimental-scope-hoisting"
+  },
+  "dependencies": {
+    "lodash.reduce": "^4.6.0"
   }
 }
