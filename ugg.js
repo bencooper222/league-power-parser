@@ -32,7 +32,7 @@ const lodashReduce = require('lodash.reduce');
           .innerHTML.replace(',', '')
       );
       const winPercent = parsePercent(
-        rowInfo.childNodes[4].getElementsByTagName('b')[0].innerHTML
+        rowInfo.childNodes[4].getElementsByTagName('b')[0].innerHTML, true
       );
 
       if (champData[name] == null) {
