@@ -2,14 +2,14 @@ import {
   parsePercent,
   calculatePower,
   displayResults,
-  openWebpage
+  openWebpage,
 } from './utility.js';
 
 (() => {
   const table = Array.from(
     document.getElementsByClassName(
-      'StatisticsChampionTable sortable tablesorter tablesorter-default'
-    )[0].rows
+      'StatisticsChampionTable sortable tablesorter tablesorter-default',
+    )[0].rows,
   );
   table.shift();
 
@@ -18,8 +18,8 @@ import {
     const cells = row.cells;
     results.push({
       name: cells[2].childNodes[1].innerHTML,
-      winPercent: parsePercent(cells[3].getAttribute('data-value')) * 100,
-      playedGames: Number(cells[4].innerHTML.replace(/,/g, ''))
+      winPercent: parsePercent(cells[3].getAttribute('data-value')),
+      playedGames: Number(cells[4].innerHTML.replace(/,/g, '')),
     });
   });
 
@@ -32,7 +32,7 @@ import {
     withNewProps.playPercent = (100 * champ.playedGames) / totalGamesPlayed;
     withNewProps.power = calculatePower(
       withNewProps.winPercent,
-      withNewProps.playPercent
+      withNewProps.playPercent,
     );
     return withNewProps;
   });

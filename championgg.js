@@ -5,7 +5,7 @@ import { parsePercent, openWebpage, displayResults } from './utility.js';
   const getDeepestChild = obj => {
     // gets the span with the champ name in it
     const children = Array.from(obj.childNodes).filter(
-      node => node.nodeName !== '#text'
+      node => node.nodeName !== '#text',
     );
     if (children.length === 0) {
       return obj;
@@ -21,18 +21,21 @@ import { parsePercent, openWebpage, displayResults } from './utility.js';
     const tableCells = tableRows[rowIndex].cells;
     const champName = getDeepestChild(tableCells[1]).innerHTML;
 
-    const winPercent = parsePercent(tableCells[3].childNodes[1].innerHTML);
-    const playPercent = parsePercent(tableCells[4].innerHTML);
+    const winPercent = parsePercent(
+      tableCells[3].childNodes[1].innerHTML,
+      true,
+    );
+    const playPercent = parsePercent(tableCells[4].innerHTML, true);
 
     const champExistIndex = championData.findIndex(
-      champ => champ.name === champName
+      champ => champ.name === champName,
     );
     //   console.log(champExistIndex);
     if (champExistIndex === -1) {
       championData.push({
         name: champName,
         winPercent,
-        playPercent
+        playPercent,
       });
     } else {
       if (championData[champExistIndex].others == null) {
@@ -40,7 +43,7 @@ import { parsePercent, openWebpage, displayResults } from './utility.js';
       }
       championData[champExistIndex].others.push({
         winPercent,
-        playPercent
+        playPercent,
       });
     }
   }

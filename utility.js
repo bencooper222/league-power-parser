@@ -1,10 +1,14 @@
 const parsePercent = (percentString, replacePercent = false) => {
-  const num = replacePercent ? Number(percentString) : Number(percentString.replace('%', ''));
-  if (num > 1) {
-    return num / 100;
-  } else {
-    return parseFloat(percentString);
-  }
+  return replacePercent
+    ? Number(percentString.replace('%', ''))
+    : Number(percentString);
+  // console.log('num', num)
+  // if (num > 1) {
+  //   return num / 100;
+  // } else {
+  //   return parseFloat(percentString);
+  // }
+  // return num;
 };
 
 const roundToDecimal = value => Math.round(value * 100) / 100;
@@ -18,13 +22,13 @@ const displayResults = championData => {
   console.log('Rank | Name | Win% | Play% | Power');
   for (let champIndex = 0; champIndex < championData.length; champIndex++) {
     championData[champIndex].winPercent = roundToDecimal(
-      championData[champIndex].winPercent
+      championData[champIndex].winPercent,
     ).toString();
     championData[champIndex].playPercent = roundToDecimal(
-      championData[champIndex].playPercent
+      championData[champIndex].playPercent,
     ).toString();
     championData[champIndex].power = roundToDecimal(
-      championData[champIndex].power
+      championData[champIndex].power,
     ).toString();
 
     console.log(
@@ -32,7 +36,7 @@ const displayResults = championData => {
         championData[champIndex].winPercent
       }%` +
         ` | ${championData[champIndex].playPercent}%` +
-        ` | ${championData[champIndex].power}`
+        ` | ${championData[champIndex].power}`,
     );
   }
   console.log('Rank | Name | Win% | Play% | Power');
@@ -41,7 +45,7 @@ const displayResults = championData => {
 const openWebpage = (championData, page = 'https://benc.me') => {
   window.open(
     `${page}/leaguepower.html?data=${JSON.stringify(championData.slice(0, 9))}`,
-    '_blank'
+    '_blank',
   );
 };
 module.exports = {
@@ -49,5 +53,5 @@ module.exports = {
   roundToDecimal,
   calculatePower,
   displayResults,
-  openWebpage
+  openWebpage,
 };

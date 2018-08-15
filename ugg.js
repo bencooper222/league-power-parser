@@ -2,7 +2,7 @@ import {
   parsePercent,
   calculatePower,
   openWebpage,
-  displayResults
+  displayResults,
 } from './utility.js';
 
 const lodashReduce = require('lodash.reduce');
@@ -12,7 +12,7 @@ const lodashReduce = require('lodash.reduce');
 
   const getAndScrapeTable = () => {
     const table = Array.from(
-      document.getElementsByClassName('rt-tbody')[0].childNodes
+      document.getElementsByClassName('rt-tbody')[0].childNodes,
     );
     table.some(row => {
       const rowInfo = row.childNodes[0];
@@ -26,19 +26,22 @@ const lodashReduce = require('lodash.reduce');
       }
 
       // const role = rowInfo.childNodes[1].getElementsByTagName('img')[0].src; // possibly bring back someday
+      // console.log(rowInfo.childNodes);
+
       const gamesPlayed = Number(
-        rowInfo.childNodes[10]
+        rowInfo.childNodes[8]
           .getElementsByTagName('span')[0]
-          .innerHTML.replace(',', '')
+          .innerHTML.replace(',', ''),
       );
       const winPercent = parsePercent(
-        rowInfo.childNodes[4].getElementsByTagName('b')[0].innerHTML, true
+        rowInfo.childNodes[4].getElementsByTagName('b')[0].innerHTML,
+        true,
       );
 
       if (champData[name] == null) {
         champData[name] = {
           played: gamesPlayed,
-          won: gamesPlayed * winPercent
+          won: gamesPlayed * winPercent,
         };
       } else {
         champData[name].played += gamesPlayed;
@@ -47,7 +50,7 @@ const lodashReduce = require('lodash.reduce');
     });
   };
   const totalPages = Number(
-    document.getElementsByClassName('-totalPages')[0].innerHTML
+    document.getElementsByClassName('-totalPages')[0].innerHTML,
   );
   const nextButton = document.getElementsByClassName('-next')[0].childNodes[0];
 
@@ -61,20 +64,20 @@ const lodashReduce = require('lodash.reduce');
     (result, value, key) => {
       return value.played + result;
     },
-    0
+    0,
   );
 
   const championDataArray = [];
   Object.keys(champData).forEach(champName => {
     const champ = champData[champName];
     championDataArray.push({
-      winPercent: (100 * champ.won) / champ.played,
+      winPercent: champ.won / champ.played,
       playPercent: (100 * champ.played) / totalGames,
       power: calculatePower(
-        (100 * champ.won) / champ.played,
-        (100 * champ.played) / totalGames
+        champ.won / champ.played,
+        (100 * champ.played) / totalGames,
       ),
-      name: champName
+      name: champName,
     });
   });
 
