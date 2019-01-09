@@ -31,8 +31,10 @@ const lodashReduce = require('lodash.reduce');
       const gamesPlayed = Number(
         rowInfo.childNodes[8]
           .getElementsByTagName('span')[0]
-          .innerHTML.replace(',', ''),
+          .innerHTML.replace(',', '')
+          .replace(',', ''), // there's only going to be max two commas...
       );
+      console.log(gamesPlayed);
       const winPercent = parsePercent(
         rowInfo.childNodes[4].getElementsByTagName('b')[0].innerHTML,
         true,
