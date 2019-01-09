@@ -34,7 +34,7 @@ const lodashReduce = require('lodash.reduce');
           .innerHTML.replace(',', '')
           .replace(',', ''), // there's only going to be max two commas...
       );
-      console.log(gamesPlayed);
+      // console.log(gamesPlayed);
       const winPercent = parsePercent(
         rowInfo.childNodes[4].getElementsByTagName('b')[0].innerHTML,
         true,
