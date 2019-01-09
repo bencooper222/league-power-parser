@@ -18,7 +18,8 @@
     "opgg:listen": "parcel opgg.js --target browser --out-file opgg.dev.js --out-dir ./ --no-source-maps",
     "opgg:bundle": "parcel build opgg.js --target browser --out-dir ./ --no-source-maps --out-file opgg.prod.js --experimental-scope-hoisting",
     "ugg:listen": "parcel ugg.js --target browser --out-file ugg.dev.js --out-dir ./ --no-source-maps",
-    "ugg:bundle": "parcel build ugg.js --target browser --out-dir ./ --no-source-maps --out-file ugg.prod.js --experimental-scope-hoisting"
+    "ugg:bundle": "parcel build ugg.js --target browser --out-dir ./ --no-source-maps --out-file ugg.prod.js --experimental-scope-hoisting",
+    "allBundle": "yarn cgg:bundle & yarn opgg:bundle & yarn ugg:bundle"
   },
   "dependencies": {
     "lodash.reduce": "^4.6.0"
