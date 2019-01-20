@@ -1,3 +1,5 @@
+import { defaultKeyNames } from '.../common.js';
+console.log(defaultKeyNames);
 const getParameterByName = (name, url) => {
   if (!url) url = window.location.href;
   name = name.replace(/[\[\]]/g, '\\$&');
@@ -7,11 +9,14 @@ const getParameterByName = (name, url) => {
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 };
+
 function roundToDecimal(string, decimals) {
   return parseFloat(parseFloat(string).toFixed(decimals));
 }
+
 const data = JSON.parse(getParameterByName('data'));
 const table = document.getElementById('champs');
+
 for (let champ of data) {
   const row = table.insertRow(-1);
   row.insertCell(-1).innerHTML = champ.name;
