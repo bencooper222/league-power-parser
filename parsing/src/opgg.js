@@ -10,6 +10,7 @@ import {
   const table = Array.from(
     document.getElementsByClassName(
       'StatisticsChampionTable sortable tablesorter tablesorter-default',
+    // @ts-ignore
     )[0].rows,
   );
   table.shift();

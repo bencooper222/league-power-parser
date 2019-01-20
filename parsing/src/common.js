@@ -32,15 +32,11 @@ const displayResults = championData => {
     championData[champIndex].winPercent = roundToDecimal(
       championData[champIndex].winPercent,
     ).toString();
-    if(champIndex ===0 ) {
-      const keys = Object.keys(championData[champIndex]);
-      console.log(keys);// console.log(championData[champIndex][defaultKeyNames.playPercent])
-      console.log(defaultKeyNames.PLAY_PERCENT === keys[1] );
-      console.log(championData[champIndex][defaultKeyNames.PLAY_PERCENT])
-    }
+
     championData[champIndex][defaultKeyNames.PLAY_PERCENT] = roundToDecimal(
       championData[champIndex][defaultKeyNames.PLAY_PERCENT],
     ).toString();
+
     championData[champIndex].power = roundToDecimal(
       championData[champIndex].power,
     ).toString();
@@ -63,10 +59,11 @@ const openWebpage = (championData, page = 'https://benc.me') => {
   );
 };
 module.exports = {
+  defaultKeyNames,
   parsePercent,
   roundToDecimal,
   calculatePower,
   displayResults,
-  openWebpage,
-  defaultKeyNames,
+  openWebpage
+  ,
 };

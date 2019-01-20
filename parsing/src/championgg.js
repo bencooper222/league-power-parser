@@ -1,6 +1,7 @@
 //@ts-check
 import { parsePercent, openWebpage, displayResults } from './common.js';
 (function() {
+  // @ts-ignore
   const tableRows = document.getElementById('table-1').rows;
 
   const getDeepestChild = obj => {

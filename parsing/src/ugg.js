@@ -20,6 +20,7 @@ const lodashReduce = require('lodash.reduce');
       const rowInfo = row.childNodes[0];
       let name;
       try {
+        // @ts-ignore
         name = rowInfo.childNodes[2].getElementsByTagName('strong')[0]
           .innerHTML;
       } catch (err) {
@@ -32,12 +33,14 @@ const lodashReduce = require('lodash.reduce');
 
       const gamesPlayed = Number(
         rowInfo.childNodes[8]
+          // @ts-ignore
           .getElementsByTagName('span')[0]
           .innerHTML.replace(',', '')
           .replace(',', ''), // there's only going to be max two commas...
       );
       // console.log(gamesPlayed);
       const winPercent = parsePercent(
+        // @ts-ignore
         rowInfo.childNodes[4].getElementsByTagName('b')[0].innerHTML,
         true,
       );
@@ -60,6 +63,7 @@ const lodashReduce = require('lodash.reduce');
 
   for (let i = 0; i < totalPages; i++) {
     getAndScrapeTable();
+    // @ts-ignore
     nextButton.click(); // fuck their pagination
   }
 
@@ -75,9 +79,9 @@ const lodashReduce = require('lodash.reduce');
   Object.keys(champData).forEach(champName => {
     const champ = champData[champName];
     championDataArray.push({
-      winPercent: champ.won / champ.played,
+      [defaultKeyNames.WIN_PERCENT]: champ.won / champ.played,
       [defaultKeyNames.PLAY_PERCENT]: (100 * champ.played) / totalGames,
-      power: calculatePower(
+      [defaultKeyNames.POWER]: calculatePower(
         champ.won / champ.played,
         (100 * champ.played) / totalGames,
       ),
@@ -85,12 +89,13 @@ const lodashReduce = require('lodash.reduce');
     });
   });
 
-  championDataArray.sort((a, b) => b.power - a.power);
+  championDataArray.sort((a, b) => b[defaultKeyNames.POWER] - a[defaultKeyNames.POWER]);
 
   displayResults(championDataArray);
   openWebpage(championDataArray);
 
   const backButton = document.getElementsByClassName('-previous')[0]
     .childNodes[0];
+  // @ts-ignore
   for (let i = 0; i < totalPages; i++) backButton.click(); // go back to beginning for user use
 })();
