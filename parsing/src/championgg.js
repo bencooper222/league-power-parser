@@ -39,10 +39,9 @@ import { parsePercent, openWebpage, displayResults } from './common.js';
         winPercent,
         playPercent,
         power: 0,
-        others: []
+        others: [],
       });
     } else {
-
       championData[champExistIndex].others.push({
         winPercent,
         playPercent,

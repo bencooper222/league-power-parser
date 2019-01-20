@@ -4,7 +4,7 @@ import {
   calculatePower,
   openWebpage,
   displayResults,
-  defaultKeyNames
+  defaultKeyNames,
 } from './common.js';
 
 const lodashReduce = require('lodash.reduce');
@@ -85,11 +85,13 @@ const lodashReduce = require('lodash.reduce');
         champ.won / champ.played,
         (100 * champ.played) / totalGames,
       ),
-      name: champName,
+      [defaultKeyNames.NAME]: champName,
     });
   });
 
-  championDataArray.sort((a, b) => b[defaultKeyNames.POWER] - a[defaultKeyNames.POWER]);
+  championDataArray.sort(
+    (a, b) => b[defaultKeyNames.POWER] - a[defaultKeyNames.POWER],
+  );
 
   displayResults(championDataArray);
   openWebpage(championDataArray);

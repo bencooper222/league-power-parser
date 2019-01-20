@@ -29,24 +29,24 @@ const calculatePower = (winPercent, playPercent) => {
 const displayResults = championData => {
   console.log('Rank | Name | Win% | Play% | Power');
   for (let champIndex = 0; champIndex < championData.length; champIndex++) {
-    championData[champIndex].winPercent = roundToDecimal(
-      championData[champIndex].winPercent,
+    championData[champIndex][defaultKeyNames.WIN_PERCENT] = roundToDecimal(
+      championData[champIndex][defaultKeyNames.WIN_PERCENT],
     ).toString();
 
     championData[champIndex][defaultKeyNames.PLAY_PERCENT] = roundToDecimal(
       championData[champIndex][defaultKeyNames.PLAY_PERCENT],
     ).toString();
 
-    championData[champIndex].power = roundToDecimal(
-      championData[champIndex].power,
+    championData[champIndex][defaultKeyNames.POWER] = roundToDecimal(
+      championData[champIndex][defaultKeyNames.POWER],
     ).toString();
 
     console.log(
-      `${champIndex + 1} | ${championData[champIndex].name} | ${
-        championData[champIndex].winPercent
-      }%` +
+      `${champIndex + 1} | ${
+        championData[champIndex][defaultKeyNames.NAME]
+      } | ${championData[champIndex][defaultKeyNames.WIN_PERCENT]}%` +
         ` | ${championData[champIndex][defaultKeyNames.PLAY_PERCENT]}%` +
-        ` | ${championData[champIndex].power}`,
+        ` | ${championData[champIndex][defaultKeyNames.POWER]}`,
     );
   }
   console.log('Rank | Name | Win% | Play% | Power');
@@ -64,6 +64,5 @@ module.exports = {
   roundToDecimal,
   calculatePower,
   displayResults,
-  openWebpage
-  ,
+  openWebpage,
 };
