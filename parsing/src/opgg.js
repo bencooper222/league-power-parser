@@ -4,6 +4,7 @@ import {
   calculatePower,
   displayResults,
   openWebpage,
+  defaultKeyNames,
 } from './common.js';
 
 (() => {
@@ -19,8 +20,10 @@ import {
   table.forEach(row => {
     const cells = row.cells;
     results.push({
-      name: cells[2].childNodes[1].innerHTML,
-      winPercent: parsePercent(cells[3].getAttribute('data-value')),
+      [defaultKeyNames.NAME]: cells[2].childNodes[1].innerHTML,
+      [defaultKeyNames.WIN_PERCENT]: parsePercent(
+        cells[3].getAttribute('data-value'),
+      ),
       playedGames: Number(cells[4].innerHTML.replace(/,/g, '')),
     });
   });
@@ -31,15 +34,16 @@ import {
 
   results.map(champ => {
     const withNewProps = champ;
-    withNewProps.playPercent = (100 * champ.playedGames) / totalGamesPlayed;
-    withNewProps.power = calculatePower(
-      withNewProps.winPercent,
-      withNewProps.playPercent,
+    withNewProps[defaultKeyNames.PLAY_PERCENT] =
+      (100 * champ.playedGames) / totalGamesPlayed;
+    withNewProps[defaultKeyNames.POWER] = calculatePower(
+      withNewProps[defaultKeyNames.WIN_PERCENT],
+      withNewProps[defaultKeyNames.PLAY_PERCENT],
     );
     return withNewProps;
   });
 
-  results.sort((a, b) => b.power - a.power);
+  results.sort((a, b) => b[defaultKeyNames.POWER] - a[defaultKeyNames.POWER]);
   displayResults(results);
   openWebpage(results);
 })();

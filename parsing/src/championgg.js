@@ -1,6 +1,12 @@
 //@ts-check
-import { parsePercent, openWebpage, displayResults } from './common.js';
-(function() {
+import {
+  parsePercent,
+  openWebpage,
+  displayResults,
+  defaultKeyNames,
+} from './common.js';
+
+(() => {
   // @ts-ignore
   const tableRows = document.getElementById('table-1').rows;
 
@@ -35,42 +41,53 @@ import { parsePercent, openWebpage, displayResults } from './common.js';
     //   console.log(champExistIndex);
     if (champExistIndex === -1) {
       championData.push({
-        name: champName,
-        winPercent,
-        playPercent,
-        power: 0,
+        [defaultKeyNames.NAME]: champName,
+        [defaultKeyNames.WIN_PERCENT]: winPercent,
+        [defaultKeyNames.PLAY_PERCENT]: playPercent,
+        [defaultKeyNames.POWER]: 0,
         others: [],
       });
     } else {
       championData[champExistIndex].others.push({
-        winPercent,
-        playPercent,
+        [defaultKeyNames.WIN_PERCENT]: winPercent,
+        [defaultKeyNames.PLAY_PERCENT]: playPercent,
       });
     }
   }
 
   championData.forEach(champ => {
     let power = 0;
-    power += (champ.winPercent - 50) * champ.playPercent; // first seen role power
+    power +=
+      (champ[defaultKeyNames.WIN_PERCENT] - 50) *
+      champ[defaultKeyNames.PLAY_PERCENT]; // first seen role power
     if (champ.others != null) {
       let champAggregateWinPercent = 0;
-      const originalRolePlayPercent = champ.playPercent;
+      const originalRolePlayPercent = champ[defaultKeyNames.PLAY_PERCENT];
 
       champ.others.forEach(playDataPairs => {
-        power += (playDataPairs.winPercent - 50) * playDataPairs.playPercent;
-        champ.playPercent += playDataPairs.playPercent;
+        power +=
+          (playDataPairs[defaultKeyNames.WIN_PERCENT] - 50) *
+          playDataPairs[defaultKeyNames.PLAY_PERCENT];
+        champ[defaultKeyNames.PLAY_PERCENT] +=
+          playDataPairs[defaultKeyNames.PLAY_PERCENT];
       });
 
       champAggregateWinPercent =
-        (champ.winPercent * originalRolePlayPercent) / champ.playPercent; // original roles winPercent
+        (champ[defaultKeyNames.WIN_PERCENT] * originalRolePlayPercent) /
+        champ[defaultKeyNames.PLAY_PERCENT]; // original roles winPercent
 
-      champAggregateWinPercent += champ.others.reduce((acc, pair) => {
-        return acc + (pair.winPercent * pair.playPercent) / champ.playPercent;
-      }, 0);
-      champ.winPercent = champAggregateWinPercent;
+      champAggregateWinPercent += champ.others.reduce(
+        (acc, pair) =>
+          acc +
+          (pair[defaultKeyNames.WIN_PERCENT] *
+            pair[defaultKeyNames.PLAY_PERCENT]) /
+            champ[defaultKeyNames.PLAY_PERCENT],
+        0,
+      );
+      champ[defaultKeyNames.WIN_PERCENT] = champAggregateWinPercent;
       delete champ.others;
     }
-    champ.power = power * 10;
+    champ[defaultKeyNames.POWER] = power * 10;
   });
 
   championData.sort((a, b) => b.power - a.power);

@@ -12,7 +12,7 @@
     "prettier": "^1.13.7"
   },
   "scripts": {
-    "lint": "prettier --write parsing/src/* *.md",
+    "lint": "prettier --write parsing/src/* site/src/* site/src/index.html README.md",
     "cgg:bundle": "parcel build parsing/src/championgg.js --target browser --out-dir ./parsing/dist --no-source-maps --out-file championgg.prod.js --experimental-scope-hoisting",
     "cgg:listen": "parcel parsing/src/championgg.js --target browser --out-file championgg.dev.js --out-dir ./parsing/dev --no-source-maps",
     "opgg:bundle": "parcel build parsing/src/opgg.js --target browser --out-dir ./parsing/dist --no-source-maps --out-file opgg.prod.js --experimental-scope-hoisting",
