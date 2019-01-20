@@ -1,4 +1,5 @@
-import { parsePercent, openWebpage, displayResults } from './utility.js';
+//@ts-check
+import { parsePercent, openWebpage, displayResults } from './common.js';
 (function() {
   const tableRows = document.getElementById('table-1').rows;
 
@@ -36,11 +37,11 @@ import { parsePercent, openWebpage, displayResults } from './utility.js';
         name: champName,
         winPercent,
         playPercent,
+        power: 0,
+        others: []
       });
     } else {
-      if (championData[champExistIndex].others == null) {
-        championData[champExistIndex].others = [];
-      }
+
       championData[champExistIndex].others.push({
         winPercent,
         playPercent,

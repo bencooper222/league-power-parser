@@ -1,3 +1,11 @@
+//@ts-check
+const defaultKeyNames = {
+  PLAY_PERCENT: 'playPercent',
+  WIN_PERCENT: 'winPercent',
+  POWER: 'power',
+  NAME: 'name',
+};
+
 const parsePercent = (percentString, replacePercent = false) => {
   return replacePercent
     ? Number(percentString.replace('%', ''))
@@ -24,8 +32,14 @@ const displayResults = championData => {
     championData[champIndex].winPercent = roundToDecimal(
       championData[champIndex].winPercent,
     ).toString();
-    championData[champIndex].playPercent = roundToDecimal(
-      championData[champIndex].playPercent,
+    if(champIndex ===0 ) {
+      const keys = Object.keys(championData[champIndex]);
+      console.log(keys);// console.log(championData[champIndex][defaultKeyNames.playPercent])
+      console.log(defaultKeyNames.PLAY_PERCENT === keys[1] );
+      console.log(championData[champIndex][defaultKeyNames.PLAY_PERCENT])
+    }
+    championData[champIndex][defaultKeyNames.PLAY_PERCENT] = roundToDecimal(
+      championData[champIndex][defaultKeyNames.PLAY_PERCENT],
     ).toString();
     championData[champIndex].power = roundToDecimal(
       championData[champIndex].power,
@@ -35,7 +49,7 @@ const displayResults = championData => {
       `${champIndex + 1} | ${championData[champIndex].name} | ${
         championData[champIndex].winPercent
       }%` +
-        ` | ${championData[champIndex].playPercent}%` +
+        ` | ${championData[champIndex][defaultKeyNames.PLAY_PERCENT]}%` +
         ` | ${championData[champIndex].power}`,
     );
   }
@@ -54,4 +68,5 @@ module.exports = {
   calculatePower,
   displayResults,
   openWebpage,
+  defaultKeyNames,
 };

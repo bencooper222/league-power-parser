@@ -1,9 +1,10 @@
+//@ts-check
 import {
   parsePercent,
   calculatePower,
   displayResults,
   openWebpage,
-} from './utility.js';
+} from './common.js';
 
 (() => {
   const table = Array.from(

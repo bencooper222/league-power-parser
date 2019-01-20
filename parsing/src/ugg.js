@@ -1,9 +1,11 @@
+//@ts-check
 import {
   parsePercent,
   calculatePower,
   openWebpage,
   displayResults,
-} from './utility.js';
+  defaultKeyNames
+} from './common.js';
 
 const lodashReduce = require('lodash.reduce');
 
@@ -74,7 +76,7 @@ const lodashReduce = require('lodash.reduce');
     const champ = champData[champName];
     championDataArray.push({
       winPercent: champ.won / champ.played,
-      playPercent: (100 * champ.played) / totalGames,
+      [defaultKeyNames.PLAY_PERCENT]: (100 * champ.played) / totalGames,
       power: calculatePower(
         champ.won / champ.played,
         (100 * champ.played) / totalGames,
