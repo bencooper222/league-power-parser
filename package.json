@@ -13,14 +13,17 @@
   },
   "scripts": {
     "lint": "prettier --write parsing/src/* site/src/* site/src/index.html README.md",
-    "cgg:bundle": "parcel build parsing/src/championgg.js --target browser --out-dir ./parsing/dist --no-source-maps --out-file championgg.prod.js --experimental-scope-hoisting",
+    "cgg:bundle": "parcel build parsing/src/championgg.js --target browser --out-dir ./parsing/dist --no-source-maps --out-file championgg.prod.js ",
     "cgg:listen": "parcel parsing/src/championgg.js --target browser --out-file championgg.dev.js --out-dir ./parsing/dev --no-source-maps",
-    "opgg:bundle": "parcel build parsing/src/opgg.js --target browser --out-dir ./parsing/dist --no-source-maps --out-file opgg.prod.js --experimental-scope-hoisting",
+    "opgg:bundle": "parcel build parsing/src/opgg.js --target browser --out-dir ./parsing/dist --no-source-maps --out-file opgg.prod.js ",
     "opgg:listen": "parcel parsing/src/opgg.js --target browser --out-file opgg.dev.js --out-dir ./parsing/dev --no-source-maps",
-    "ugg:bundle": "parcel build parsing/src/ugg.js --target browser --out-dir ./parsing/dist --no-source-maps --out-file ugg.prod.js --experimental-scope-hoisting",
+    "ugg:bundle": "parcel build parsing/src/ugg.js --target browser --out-dir ./parsing/dist --no-source-maps --out-file ugg.prod.js",
     "ugg:listen": "parcel parsing/src/ugg.js --target browser --out-file ugg.dev.js --out-dir ./parsing/dev --no-source-maps",
     "all:bundle": "yarn cgg:bundle & yarn opgg:bundle & yarn ugg:bundle",
-    "all:listen": "yarn cgg:listen & yarn opgg:listen & yarn ugg:listen"
+    "all:listen": "yarn cgg:listen & yarn opgg:listen & yarn ugg:listen",
+    "site:listen": "parcel ./site/src/index.html --out-dir ./site/dev",
+    "site:deploy": "parcel build ./site/src/index.html --out-dir ./site/dist",
+    "fullBuild": "yarn site:deploy & yarn all:bundle"
   },
   "dependencies": {
     "lodash.reduce": "^4.6.0"

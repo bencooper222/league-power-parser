@@ -1,10 +1,5 @@
-//@ts-check
-const defaultKeyNames = {
-  PLAY_PERCENT: 'playPercent',
-  WIN_PERCENT: 'winPercent',
-  POWER: 'power',
-  NAME: 'name',
-};
+// @ts-ignore
+import * as defaultKeyNames from '../../defaultKeyNames.json';
 
 const parsePercent = (percentString, replacePercent = false) => {
   return replacePercent
