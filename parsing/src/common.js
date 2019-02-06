@@ -49,7 +49,7 @@ const displayResults = championData => {
 
 const openWebpage = (championData, page = 'https://power.benc.me') => {
   window.open(
-    `${page}/leaguepower.html?data=${JSON.stringify(championData.slice(0, 9))}`,
+    `${page}/?data=${JSON.stringify(championData.slice(0, 9))}`,
     '_blank',
   );
 };
