@@ -47,7 +47,7 @@ const displayResults = championData => {
   console.log('Rank | Name | Win% | Play% | Power');
 };
 
-const openWebpage = (championData, page = 'https://benc.me') => {
+const openWebpage = (championData, page = 'https://power.benc.me') => {
   window.open(
     `${page}/leaguepower.html?data=${JSON.stringify(championData.slice(0, 9))}`,
     '_blank',
