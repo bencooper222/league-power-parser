@@ -2,8 +2,10 @@ import {
   parsePercent,
   openWebpage,
   displayResults,
-  defaultKeyNames,
+  // defaultKeyNames,
 } from './common.js';
+
+import * as defaultKeyNames from '../../defaultKeyNames.json';
 
 (() => {
   // @ts-ignore

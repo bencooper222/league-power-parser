@@ -61,6 +61,7 @@ typings/
 .cache
 
 # no dev build
-parsing/dev
+parsing/dev/*
 
-site/dev
+site/dist/*
+

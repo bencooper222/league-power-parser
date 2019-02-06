@@ -3,8 +3,9 @@ import {
   calculatePower,
   displayResults,
   openWebpage,
-  defaultKeyNames,
+  // defaultKeyNames,
 } from './common.js';
+import * as defaultKeyNames from '../../defaultKeyNames.json';
 
 (() => {
   const table = Array.from(

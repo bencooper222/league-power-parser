@@ -2,9 +2,11 @@
 import * as defaultKeyNames from '../../defaultKeyNames.json';
 
 const parsePercent = (percentString, replacePercent = false) => {
-  return replacePercent
+  const percent = replacePercent
     ? Number(percentString.replace('%', ''))
     : Number(percentString);
+
+  return percent;
   // console.log('num', num)
   // if (num > 1) {
   //   return num / 100;
@@ -54,7 +56,7 @@ const openWebpage = (championData, page = 'https://power.benc.me') => {
   );
 };
 module.exports = {
-  defaultKeyNames,
+  // defaultKeyNames,
   parsePercent,
   roundToDecimal,
   calculatePower,
