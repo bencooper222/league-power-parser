@@ -7,8 +7,6 @@ import {
 
 import * as defaultKeyNames from '../../defaultKeyNames.json';
 
-console.log(defaultKeyNames.NAME, parsePercent('26%'));
-
 const lodashReduce = require('lodash.reduce');
 // import * as lodashReduce from 'lodash.reduce';
 
