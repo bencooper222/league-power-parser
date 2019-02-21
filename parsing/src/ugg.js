@@ -7,30 +7,39 @@ import {
 
 import * as defaultKeyNames from '../../defaultKeyNames.json';
 
-const lodashReduce = require('lodash.reduce');
+const objectReduce = require('lodash.reduce');
 // import * as lodashReduce from 'lodash.reduce';
 
-(() => {
-  const champData = {};
+(async () => {
+  const prepSite = () => {
+    return new Promise((res, rej) => {
+      let oldLen = document.getElementsByClassName('rt-tr-group').length;
+      let newLen = 0;
+      let attempts = 0;
+
+      const interval = setInterval(() => {
+        window.scrollTo(0, document.body.scrollHeight);
+        oldLen = newLen;
+        newLen = document.getElementsByClassName('rt-tr-group').length;
+
+        if ((oldLen === newLen && newLen >= 167) || attempts++ > 7) {
+          clearInterval(interval);
+          res();
+        }
+      }, 20);
+    });
+  };
 
   const getAndScrapeTable = () => {
     const table = Array.from(
       document.getElementsByClassName('rt-tbody')[0].childNodes,
     );
-    table.some(row => {
-      const rowInfo = row.childNodes[0];
-      let name;
-      try {
-        // @ts-ignore
-        name = rowInfo.childNodes[2].getElementsByTagName('strong')[0]
-          .innerHTML;
-      } catch (err) {
-        return true; // this occurs on the last page with the emptry rows.
-        // returning true ends "some"
-      }
 
-      // const role = rowInfo.childNodes[1].getElementsByTagName('img')[0].src; // possibly bring back someday
-      // console.log(rowInfo.childNodes);
+    return table.reduce((champData, row) => {
+      const rowInfo = row.childNodes[0];
+      let name = rowInfo.childNodes[2].getElementsByClassName(
+        'champion-name',
+      )[0].innerHTML;
 
       const gamesPlayed = Number(
         rowInfo.childNodes[8]
@@ -55,50 +64,37 @@ const lodashReduce = require('lodash.reduce');
         champData[name].played += gamesPlayed;
         champData[name].won += gamesPlayed * winPercent;
       }
-    });
+      return champData;
+    }, {});
   };
-  const totalPages = Number(
-    document.getElementsByClassName('-totalPages')[0].innerHTML,
-  );
-  const nextButton = document.getElementsByClassName('-next')[0].childNodes[0];
 
-  for (let i = 0; i < totalPages; i++) {
-    getAndScrapeTable();
-    // @ts-ignore
-    nextButton.click(); // fuck their pagination
-  }
+  await prepSite();
+  const champDataObject = getAndScrapeTable();
 
-  const totalGames = lodashReduce(
-    champData,
-    (result, value, key) => {
+  const totalGames = objectReduce(
+    champDataObject,
+    (result, value) => {
       return value.played + result;
     },
     0,
   );
 
-  const championDataArray = [];
-  Object.keys(champData).forEach(champName => {
-    const champ = champData[champName];
-    championDataArray.push({
-      [defaultKeyNames.WIN_PERCENT]: champ.won / champ.played,
-      [defaultKeyNames.PLAY_PERCENT]: (100 * champ.played) / totalGames,
-      [defaultKeyNames.POWER]: calculatePower(
-        champ.won / champ.played,
-        (100 * champ.played) / totalGames,
-      ),
-      [defaultKeyNames.NAME]: champName,
-    });
-  });
-
-  championDataArray.sort(
-    (a, b) => b[defaultKeyNames.POWER] - a[defaultKeyNames.POWER],
-  );
+  const championDataArray = Object.keys(champDataObject)
+    .reduce((acc, champName) => {
+      const champ = champDataObject[champName];
+      return acc.concat({
+        [defaultKeyNames.WIN_PERCENT]: champ.won / champ.played,
+        [defaultKeyNames.PLAY_PERCENT]: (100 * champ.played) / totalGames,
+        [defaultKeyNames.POWER]: calculatePower(
+          champ.won / champ.played,
+          (100 * champ.played) / totalGames,
+        ),
+        [defaultKeyNames.NAME]: champName,
+      });
+    }, [])
+    .sort((a, b) => b[defaultKeyNames.POWER] - a[defaultKeyNames.POWER]);
 
   displayResults(championDataArray);
   openWebpage(championDataArray);
-
-  const backButton = document.getElementsByClassName('-previous')[0]
-    .childNodes[0];
-  // @ts-ignore
-  for (let i = 0; i < totalPages; i++) backButton.click(); // go back to beginning for user use
+  document.body.scrollTop = document.documentElement.scrollTop = 0; // https://www.youtube.com/watch?v=bmMhAMnrJDA
 })();
