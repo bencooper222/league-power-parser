@@ -25,7 +25,5 @@
     "site:deploy": "parcel build ./site/src/index.html --out-dir ./site/dist",
     "fullBuild": "yarn site:deploy & yarn all:bundle"
   },
-  "dependencies": {
-    "lodash.reduce": "^4.6.0"
-  }
+  "dependencies": {}
 }

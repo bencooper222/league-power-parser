@@ -55,6 +55,14 @@ const openWebpage = (championData, page = 'https://power.benc.me') => {
     '_blank',
   );
 };
+
+const base64OpenWebpage = (championData, page = 'https://power.benc.me') => {
+  window.open(
+    `${page}/?d=${btoa(JSON.stringify(championData.slice(0, 9)))}`,
+    '_blank',
+  );
+};
+
 module.exports = {
   // defaultKeyNames,
   parsePercent,
@@ -62,4 +70,5 @@ module.exports = {
   calculatePower,
   displayResults,
   openWebpage,
+  base64OpenWebpage,
 };

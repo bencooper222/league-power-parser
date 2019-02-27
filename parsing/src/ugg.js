@@ -1,7 +1,7 @@
 import {
   parsePercent,
   calculatePower,
-  openWebpage,
+  base64OpenWebpage,
   displayResults,
 } from './common.js';
 import * as defaultKeyNames from '../../defaultKeyNames.json';
@@ -90,5 +90,5 @@ import * as defaultKeyNames from '../../defaultKeyNames.json';
     .sort((a, b) => b[defaultKeyNames.POWER] - a[defaultKeyNames.POWER]);
 
   displayResults(championDataArray);
-  openWebpage(championDataArray);
+  base64OpenWebpage(championDataArray);
 })();

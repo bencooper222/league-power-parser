@@ -15,7 +15,8 @@ function roundToDecimal(string, decimals) {
   return parseFloat(parseFloat(string).toFixed(decimals));
 }
 
-const data = JSON.parse(getParameterByName('data'));
+let data = JSON.parse(getParameterByName('data'));
+data = data == null ? JSON.parse(atob(getParameterByName('d'))) : data;
 const table = document.getElementById('champs');
 
 for (let champ of data) {
