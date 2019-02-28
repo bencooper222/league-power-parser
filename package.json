@@ -25,5 +25,7 @@
     "site:deploy": "parcel build ./site/src/index.html --out-dir ./site/dist",
     "fullBuild": "yarn site:deploy & yarn all:bundle"
   },
-  "dependencies": {}
+  "dependencies": {
+    "node-sass": "^4.11.0"
+  }
 }

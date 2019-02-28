@@ -1,0 +1,17 @@
+$night: #000414;
+$nightText: #bebebe;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: $night;
+  color: $nightText;
+  table {
+    border-collapse: collapse;
+    border: 1px solid $nightText;
+    td,
+    th {
+      border: 1px solid $nightText;
+      padding: 4px;
+    }
+  }
+}

@@ -11,9 +11,9 @@ const getParameterByName = (name, url) => {
 };
 
 // maybe import from common.js someday
-function roundToDecimal(string, decimals) {
+const roundToDecimal = (string, decimals) => {
   return parseFloat(parseFloat(string).toFixed(decimals));
-}
+};
 
 let data = JSON.parse(getParameterByName('data'));
 data = data == null ? JSON.parse(atob(getParameterByName('d'))) : data;
@@ -22,10 +22,17 @@ const table = document.getElementById('champs');
 for (let champ of data) {
   const row = table.insertRow(-1);
   row.insertCell(-1).innerHTML = champ[defaultKeyNames.NAME];
-  row.insertCell(-1).innerHTML =
-    roundToDecimal(champ[defaultKeyNames.WIN_PERCENT], 2) + '%';
-  row.insertCell(-1).innerHTML =
-    roundToDecimal(champ[defaultKeyNames.PLAY_PERCENT], 2) + '%';
+
+  row.insertCell(-1).innerHTML = `${roundToDecimal(
+    champ[defaultKeyNames.WIN_PERCENT],
+    2,
+  )}%`;
+
+  row.insertCell(-1).innerHTML = `${roundToDecimal(
+    champ[defaultKeyNames.PLAY_PERCENT],
+    2,
+  )}%`;
+
   row.insertCell(-1).innerHTML = roundToDecimal(
     champ[defaultKeyNames.POWER],
     2,
