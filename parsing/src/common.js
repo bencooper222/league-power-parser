@@ -55,7 +55,7 @@ const openWebpage = (
   page = 'https://power.benc.me',
 ) => {
   window.open(
-    `${page}/?data=${
+    `${page}/?${base64 ? 'd' : 'data'}=${
       base64
         ? btoa(JSON.stringify(championData.slice(0, 9)))
         : JSON.stringify(championData.slice(0, 9))

@@ -90,5 +90,5 @@ import * as defaultKeyNames from '../../defaultKeyNames.json';
     .sort((a, b) => b[defaultKeyNames.POWER] - a[defaultKeyNames.POWER]);
 
   displayResults(championDataArray);
-  openWebpage(championDataArray, false);
+  openWebpage(championDataArray, true); //base64 encode
 })();

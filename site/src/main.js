@@ -15,7 +15,7 @@ const roundToDecimal = (string, decimals) => {
   return parseFloat(parseFloat(string).toFixed(decimals));
 };
 
-let data = JSON.parse(getParameterByName('data'));
+let data = JSON.parse(getParameterByName('data')); // data for JSON, d for base64
 data = data == null ? JSON.parse(atob(getParameterByName('d'))) : data;
 const table = document.getElementById('champs');
 
