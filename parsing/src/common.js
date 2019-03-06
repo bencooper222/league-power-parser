@@ -49,16 +49,17 @@ const displayResults = championData => {
   console.log('Rank | Name | Win% | Play% | Power');
 };
 
-const openWebpage = (championData, page = 'https://power.benc.me') => {
+const openWebpage = (
+  championData,
+  base64 = false,
+  page = 'https://power.benc.me',
+) => {
   window.open(
-    `${page}/?data=${JSON.stringify(championData.slice(0, 9))}`,
-    '_blank',
-  );
-};
-
-const base64OpenWebpage = (championData, page = 'https://power.benc.me') => {
-  window.open(
-    `${page}/?d=${btoa(JSON.stringify(championData.slice(0, 9)))}`,
+    `${page}/?data=${
+      base64
+        ? btoa(JSON.stringify(championData.slice(0, 9)))
+        : JSON.stringify(championData.slice(0, 9))
+    }`,
     '_blank',
   );
 };
@@ -70,5 +71,4 @@ module.exports = {
   calculatePower,
   displayResults,
   openWebpage,
-  base64OpenWebpage,
 };

@@ -1,0 +1,4 @@
+{
+  "presets": ["@babel/preset-env"]
+}
+//or firefox > 52 or chrome > 55 or safari > 10.1 or opera > 42

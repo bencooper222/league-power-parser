@@ -8,6 +8,8 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
     "parcel-bundler": "^1.9.4",
     "prettier": "^1.13.7"
   },
@@ -17,8 +19,8 @@
     "cgg:listen": "parcel parsing/src/championgg.js --target browser --out-file championgg.dev.js --out-dir ./parsing/dev --no-source-maps",
     "opgg:bundle": "parcel build parsing/src/opgg.js --target browser --out-dir ./parsing/dist --no-source-maps --out-file opgg.prod.js ",
     "opgg:listen": "parcel parsing/src/opgg.js --target browser --out-file opgg.dev.js --out-dir ./parsing/dev --no-source-maps",
-    "ugg:bundle": "parcel build parsing/src/ugg.js --target browser --out-dir ./parsing/dist --no-source-maps --experimental-scope-hoisting --out-file ugg.prod.js",
-    "ugg:listen": "parcel parsing/src/ugg.js --target browser --out-file ugg.dev.js --out-dir ./parsing/dev --no-source-maps",
+    "ugg:bundle": "parcel build parsing/src/ugg.js --target browser --out-dir ./parsing/dist --no-source-maps --experimental-scope-hoisting  --out-file ugg.prod.js",
+    "ugg:listen": "parcel parsing/src/ugg.js --target browser --out-file ugg.dev.js --out-dir ./parsing/dev --no-source-maps --no-hmr",
     "all:bundle": "yarn cgg:bundle & yarn opgg:bundle & yarn ugg:bundle",
     "all:listen": "yarn cgg:listen & yarn opgg:listen & yarn ugg:listen",
     "site:listen": "parcel ./site/src/index.html --out-dir ./site/dev",
@@ -27,5 +29,12 @@
   },
   "dependencies": {
     "node-sass": "^4.11.0"
-  }
+  },
+  "browserslist": [
+    "edge > 15",
+    "firefox > 52",
+    "chrome > 55",
+    "safari > 10.1",
+    "opera > 42"
+  ]
 }
