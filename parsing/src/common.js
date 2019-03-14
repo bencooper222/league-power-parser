@@ -52,13 +52,16 @@ const displayResults = championData => {
 const openWebpage = (
   championData,
   base64 = false,
-  page = 'https://power.benc.me',
+  metadata = {},
+  page = 'http://power.benc.me',
 ) => {
+  const NUM_CHAMPS = 10;
+  let json;
+  if (metadata == null) json = { d: championData.slice(0, NUM_CHAMPS) };
+  else json = { d: championData.slice(0, NUM_CHAMPS), ...metadata };
   window.open(
     `${page}/?${base64 ? 'd' : 'data'}=${
-      base64
-        ? btoa(JSON.stringify(championData.slice(0, 9)))
-        : JSON.stringify(championData.slice(0, 9))
+      base64 ? btoa(JSON.stringify(json)) : JSON.stringify(json)
     }`,
     '_blank',
   );

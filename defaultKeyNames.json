@@ -2,5 +2,11 @@
   "PLAY_PERCENT": "p",
   "WIN_PERCENT": "w",
   "POWER": "r",
-  "NAME": "n"
+  "NAME": "n",
+
+  "ELO": "e",
+  "REGION": "g",
+  "PATCH": "h",
+  "TIME": "l",
+  "QUEUE": "q"
 }

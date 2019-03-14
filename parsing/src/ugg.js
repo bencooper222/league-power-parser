@@ -90,5 +90,28 @@ import * as defaultKeyNames from '../../defaultKeyNames.json';
     .sort((a, b) => b[defaultKeyNames.POWER] - a[defaultKeyNames.POWER]);
 
   displayResults(championDataArray);
-  openWebpage(championDataArray, true); //base64 encode
+
+  const time = new Date();
+  time.setHours(
+    time.getHours() -
+      Number(
+        document
+          .querySelector('.subtitle > div:nth-child(1) > strong:nth-child(4)')
+          .innerHTML.replace(/(^\d+)(.+$)/i, '$1'),
+      ),
+  );
+  openWebpage(championDataArray, true, {
+    [defaultKeyNames.TIME]: time.valueOf(),
+    [defaultKeyNames.ELO]: document.querySelector('#react-select-9--value-item')
+      .innerHTML,
+    [defaultKeyNames.QUEUE]: document.querySelector(
+      '#react-select-10--value-item',
+    ).innerHTML,
+    [defaultKeyNames.PATCH]: document.querySelector(
+      '#react-select-11--value > div:nth-child(1) > span:nth-child(1)',
+    ).innerHTML,
+    [defaultKeyNames.REGION]: document.querySelector(
+      '#react-select-12--value-item',
+    ).innerHTML,
+  }); //base64 encode
 })();

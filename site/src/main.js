@@ -19,7 +19,8 @@ let data = JSON.parse(getParameterByName('data')); // data for JSON, d for base6
 data = data == null ? JSON.parse(atob(getParameterByName('d'))) : data;
 const table = document.getElementById('champs');
 
-for (let champ of data) {
+console.log(data);
+for (let champ of data.d) {
   const row = table.insertRow(-1);
   row.insertCell(-1).innerHTML = champ[defaultKeyNames.NAME];
 
@@ -38,3 +39,27 @@ for (let champ of data) {
     2,
   );
 }
+
+(data => {
+  const body = document.getElementsByTagName('div')[0];
+
+  const eloParagraph = document.createElement('p'),
+    regionParagraph = document.createElement('p'),
+    patchParagraph = document.createElement('p'),
+    timeParagraph = document.createElement('p'),
+    queueParagraph = document.createElement('p');
+  const date = new Date(data[defaultKeyNames.TIME]);
+  (eloParagraph.innerHTML = `Elo: ${data[defaultKeyNames.ELO]}`),
+    (regionParagraph.innerHTML = `Region: ${data[defaultKeyNames.REGION]}`),
+    (patchParagraph.innerHTML = `Patch: ${data[defaultKeyNames.PATCH]}`),
+    (timeParagraph.innerHTML = `Last updated: ${date.getMonth()}/${date.getDate()}/${date.getFullYear()} ${date.getHours()}:${
+      date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
+    }`),
+    (queueParagraph.innerHTML = `Queue: ${data[defaultKeyNames.QUEUE]}`);
+
+  body.prepend(eloParagraph),
+    body.prepend(regionParagraph),
+    body.prepend(patchParagraph),
+    body.prepend(timeParagraph),
+    body.prepend(queueParagraph);
+})(data);
