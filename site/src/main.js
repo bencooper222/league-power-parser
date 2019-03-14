@@ -40,26 +40,26 @@ for (let champ of data.d) {
   );
 }
 
-(data => {
-  const body = document.getElementsByTagName('div')[0];
+// (data => {
+//   const body = document.getElementsByTagName('div')[0];
 
-  const eloParagraph = document.createElement('p'),
-    regionParagraph = document.createElement('p'),
-    patchParagraph = document.createElement('p'),
-    timeParagraph = document.createElement('p'),
-    queueParagraph = document.createElement('p');
-  const date = new Date(data[defaultKeyNames.TIME]);
-  (eloParagraph.innerHTML = `Elo: ${data[defaultKeyNames.ELO]}`),
-    (regionParagraph.innerHTML = `Region: ${data[defaultKeyNames.REGION]}`),
-    (patchParagraph.innerHTML = `Patch: ${data[defaultKeyNames.PATCH]}`),
-    (timeParagraph.innerHTML = `Last updated: ${date.getMonth()}/${date.getDate()}/${date.getFullYear()} ${date.getHours()}:${
-      date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
-    }`),
-    (queueParagraph.innerHTML = `Queue: ${data[defaultKeyNames.QUEUE]}`);
+//   const eloParagraph = document.createElement('p'),
+//     regionParagraph = document.createElement('p'),
+//     patchParagraph = document.createElement('p'),
+//     timeParagraph = document.createElement('p'),
+//     queueParagraph = document.createElement('p');
+//   const date = new Date(data[defaultKeyNames.TIME]);
+//   (eloParagraph.innerHTML = `Elo: ${data[defaultKeyNames.ELO]}`),
+//     (regionParagraph.innerHTML = `Region: ${data[defaultKeyNames.REGION]}`),
+//     (patchParagraph.innerHTML = `Patch: ${data[defaultKeyNames.PATCH]}`),
+//     (timeParagraph.innerHTML = `Last updated: ${date.getMonth()}/${date.getDate()}/${date.getFullYear()} ${date.getHours()}:${
+//       date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
+//     }`),
+//     (queueParagraph.innerHTML = `Queue: ${data[defaultKeyNames.QUEUE]}`);
 
-  body.prepend(eloParagraph),
-    body.prepend(regionParagraph),
-    body.prepend(patchParagraph),
-    body.prepend(timeParagraph),
-    body.prepend(queueParagraph);
-})(data);
+//   body.prepend(eloParagraph),
+//     body.prepend(regionParagraph),
+//     body.prepend(patchParagraph),
+//     body.prepend(timeParagraph),
+//     body.prepend(queueParagraph);
+// })(data);

@@ -53,7 +53,7 @@ const openWebpage = (
   championData,
   base64 = false,
   metadata = {},
-  page = 'http://power.benc.me',
+  page = 'https://power.benc.me',
 ) => {
   const NUM_CHAMPS = 10;
   let json;
