@@ -20,7 +20,7 @@ data = data == null ? JSON.parse(atob(getParameterByName('d'))) : data;
 const table = document.getElementById('champs');
 
 console.log(data);
-for (let champ of data.d) {
+data.d.forEach(champ => {
   const row = table.insertRow(-1);
   row.insertCell(-1).innerHTML = champ[defaultKeyNames.NAME];
 
@@ -38,7 +38,7 @@ for (let champ of data.d) {
     champ[defaultKeyNames.POWER],
     2,
   );
-}
+});
 
 // (data => {
 //   const body = document.getElementsByTagName('div')[0];
