@@ -22,7 +22,7 @@
     "all:bundle": "yarn cgg:bundle & yarn opgg:bundle & yarn ugg:bundle",
     "all:listen": "yarn cgg:listen & yarn opgg:listen & yarn ugg:listen",
     "site:listen": "parcel ./site/src/index.html --out-dir ./site/dev",
-    "site:deploy": "parcel build ./site/src/index.html --out-dir ./site/dist",
+    "site:bundle": "parcel build ./site/src/index.html --out-dir ./site/dist",
     "fullBuild": "yarn site:deploy & yarn all:bundle"
   },
   "dependencies": {
