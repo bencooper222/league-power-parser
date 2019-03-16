@@ -1,5 +1,5 @@
 {
-  "name": "championgg-power-parser",
+  "name": "league-power-parser",
   "version": "1.0.0",
   "description": "Parses champion.gg to get the best champions to ban.",
   "main": "main.prod.js",
