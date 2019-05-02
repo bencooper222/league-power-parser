@@ -49,7 +49,7 @@ import * as defaultKeyNames from '../../defaultKeyNames.json';
         .innerHTML.replace(',', '')
         .replace(',', ''), // there's only going to be max two commas...
     );
-    // console.log(gamesPlayed);
+
     const winPercent = parsePercent(
       // @ts-ignore
       rowInfo.childNodes[4].getElementsByTagName('b')[0].innerHTML,
@@ -81,7 +81,6 @@ import * as defaultKeyNames from '../../defaultKeyNames.json';
   // manipulate data into proper format
   const championDataArray = Object.keys(champDataObject)
     .reduce((acc, champName) => {
-      console.log('acc', acc);
       const { won, played } = champDataObject[champName];
 
       return acc.concat([
@@ -110,7 +109,6 @@ import * as defaultKeyNames from '../../defaultKeyNames.json';
   //         .innerHTML.replace(/(^\d+)(.+$)/i, '$1'),
   //     ),
   // );
-  console.log(championDataArray);
   openWebpage(championDataArray, true);
   // {
   // [defaultKeyNames.TIME]: time.valueOf(),
