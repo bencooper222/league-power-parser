@@ -4,6 +4,7 @@ import {
   openWebpage,
   displayResults,
 } from './common.js';
+
 import * as defaultKeyNames from '../../defaultKeyNames.json';
 
 (async () => {
@@ -18,7 +19,7 @@ import * as defaultKeyNames from '../../defaultKeyNames.json';
       oldLen = newLen;
       newLen = document.getElementsByClassName('rt-tr-group').length;
 
-      const LIST_LENGTH = 167; // loosely update with length of u.gg list every so often
+      const LIST_LENGTH = 174; // loosely update with length of u.gg list every so often
       if (
         (oldLen === newLen && newLen >= LIST_LENGTH) ||
         attempts++ > Math.ceil((2 * LIST_LENGTH) / 50)
@@ -55,6 +56,11 @@ import * as defaultKeyNames from '../../defaultKeyNames.json';
       true,
     );
 
+    const banPercent = parsePercent(
+      rowInfo.childNodes[6].getElementsByTagName('span')[0].innerHTML,
+      true,
+    );
+
     if (champData[name] == null) {
       champData[name] = {
         played: gamesPlayed,
@@ -75,17 +81,21 @@ import * as defaultKeyNames from '../../defaultKeyNames.json';
   // manipulate data into proper format
   const championDataArray = Object.keys(champDataObject)
     .reduce((acc, champName) => {
+      console.log('acc', acc);
       const { won, played } = champDataObject[champName];
 
-      return acc.concat({
-        [defaultKeyNames.WIN_PERCENT]: won / played,
-        [defaultKeyNames.PLAY_PERCENT]: (100 * played) / totalGames,
-        [defaultKeyNames.POWER]: calculatePower(
-          won / played,
-          (100 * played) / totalGames,
-        ),
-        [defaultKeyNames.NAME]: champName,
-      });
+      return acc.concat([
+        Array.from({
+          [defaultKeyNames.WIN_PERCENT]: won / played,
+          [defaultKeyNames.PLAY_PERCENT]: (100 * played) / totalGames,
+          [defaultKeyNames.POWER]: calculatePower(
+            won / played,
+            (100 * played) / totalGames,
+          ),
+          [defaultKeyNames.NAME]: champName,
+          length: 4, // to allow for arrayification
+        }),
+      ]);
     }, [])
     .sort((a, b) => b[defaultKeyNames.POWER] - a[defaultKeyNames.POWER]);
 
