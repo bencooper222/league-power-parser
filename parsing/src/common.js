@@ -8,13 +8,6 @@ export const parsePercent = (percentString, replacePercent = false) => {
     : Number(percentString);
 
   return percent;
-  // console.log('num', num)
-  // if (num > 1) {
-  //   return num / 100;
-  // } else {
-  //   return parseFloat(percentString);
-  // }
-  // return num;
 };
 
 export const roundToDecimal = value => Math.round(value * 100) / 100;
@@ -25,29 +18,15 @@ export const calculatePower = (winPercent, playPercent) => {
 };
 
 export const displayResults = championData => {
-  console.log('Rank | Name | Win% | Play% | Power');
-  for (let champIndex = 0; champIndex < championData.length; champIndex++) {
-    championData[champIndex][defaultKeyNames.WIN_PERCENT] = roundToDecimal(
-      championData[champIndex][defaultKeyNames.WIN_PERCENT],
-    ).toString();
-
-    championData[champIndex][defaultKeyNames.PLAY_PERCENT] = roundToDecimal(
-      championData[champIndex][defaultKeyNames.PLAY_PERCENT],
-    ).toString();
-
-    championData[champIndex][defaultKeyNames.POWER] = roundToDecimal(
-      championData[champIndex][defaultKeyNames.POWER],
-    ).toString();
-
-    console.log(
-      `${champIndex + 1} | ${
-        championData[champIndex][defaultKeyNames.NAME]
-      } | ${championData[champIndex][defaultKeyNames.WIN_PERCENT]}%` +
-        ` | ${championData[champIndex][defaultKeyNames.PLAY_PERCENT]}%` +
-        ` | ${championData[champIndex][defaultKeyNames.POWER]}`,
-    );
-  }
-  console.log('Rank | Name | Win% | Play% | Power');
+  const transformed = championData.map(el => {
+    return {
+      'Champ Name': el[defaultKeyNames.NAME],
+      'Win Percent': el[defaultKeyNames.WIN_PERCENT],
+      'Play Percent': el[defaultKeyNames.PLAY_PERCENT],
+      Power: el[defaultKeyNames.POWER],
+    };
+  });
+  console.table(transformed);
 };
 
 export const openWebpage = async (
@@ -61,7 +40,7 @@ export const openWebpage = async (
 
   const jsonString = JSON.stringify(json);
   const hash = sha1(jsonString);
-  console.log(hash);
+
   await fetch(`${STORAGE_URL}/${hash}`, {
     method: 'POST',
     body: jsonString,
