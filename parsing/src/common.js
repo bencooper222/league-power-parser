@@ -1,7 +1,8 @@
 // @ts-ignore
-import * as defaultKeyNames from '../../defaultKeyNames.json';
+import defaultKeyNames from '../../defaultKeyNames';
+import sha1 from 'sha1';
 
-const parsePercent = (percentString, replacePercent = false) => {
+export const parsePercent = (percentString, replacePercent = false) => {
   const percent = replacePercent
     ? Number(percentString.replace('%', ''))
     : Number(percentString);
@@ -16,14 +17,14 @@ const parsePercent = (percentString, replacePercent = false) => {
   // return num;
 };
 
-const roundToDecimal = value => Math.round(value * 100) / 100;
+export const roundToDecimal = value => Math.round(value * 100) / 100;
 
 //state win and play percent in terms of 100>num>1
-const calculatePower = (winPercent, playPercent) => {
+export const calculatePower = (winPercent, playPercent) => {
   return 10 * (playPercent * (winPercent - 50));
 };
 
-const displayResults = championData => {
+export const displayResults = championData => {
   console.log('Rank | Name | Win% | Play% | Power');
   for (let champIndex = 0; champIndex < championData.length; champIndex++) {
     championData[champIndex][defaultKeyNames.WIN_PERCENT] = roundToDecimal(
@@ -49,29 +50,22 @@ const displayResults = championData => {
   console.log('Rank | Name | Win% | Play% | Power');
 };
 
-const openWebpage = (
+export const openWebpage = async (
   championData,
-  base64 = false,
-  metadata = {},
   page = 'https://power.benc.me',
 ) => {
-  const NUM_CHAMPS = 10;
-  let json;
-  if (metadata == null) json = { d: championData.slice(0, NUM_CHAMPS) };
-  else json = { d: championData.slice(0, NUM_CHAMPS), ...metadata };
-  window.open(
-    `${page}/?${base64 ? 'd' : 'data'}=${
-      base64 ? btoa(JSON.stringify(json)) : JSON.stringify(json)
-    }`,
-    '_blank',
-  );
-};
+  const NUM_CHAMPS = 30;
+  const STORAGE_URL = `https://kvdb.io/${defaultKeyNames.KEYVAL}`;
 
-module.exports = {
-  // defaultKeyNames,
-  parsePercent,
-  roundToDecimal,
-  calculatePower,
-  displayResults,
-  openWebpage,
+  const json = championData.slice(0, NUM_CHAMPS);
+
+  const jsonString = JSON.stringify(json);
+  const hash = sha1(jsonString);
+  console.log(hash);
+  await fetch(`${STORAGE_URL}/${hash}`, {
+    method: 'POST',
+    body: jsonString,
+  });
+
+  window.open(`${page}/?s=${hash}`, '_blank');
 };

@@ -5,9 +5,10 @@ import {
   displayResults,
 } from './common.js';
 
-import * as defaultKeyNames from '../../defaultKeyNames.json';
+import defaultKeyNames from '../../defaultKeyNames';
 
 (async () => {
+  const downInterval = 35;
   // prepare site by force loading table
   await new Promise(res => {
     let oldLen = document.getElementsByClassName('rt-tr-group').length,
@@ -27,31 +28,34 @@ import * as defaultKeyNames from '../../defaultKeyNames.json';
         clearInterval(interval);
         res();
       }
-    }, 20);
+    }, downInterval);
   });
 
   // restore usability asap
   document.body.scrollTop = document.documentElement.scrollTop = 0; // https://www.youtube.com/watch?v=bmMhAMnrJDA
 
   // gather data
-  const champDataObject = Array.from(
+  const tableNodes = Array.from(
     document.getElementsByClassName('rt-tbody')[0].childNodes,
-  ).reduce((champData, row) => {
+  );
+  const champDataObject = {};
+
+  for (let i = 0; i < tableNodes.length; i++) {
+    const row = tableNodes[i];
+
     const rowInfo = row.childNodes[0];
     const name = rowInfo.childNodes[2].getElementsByClassName(
       'champion-name',
     )[0].innerHTML;
 
-    const gamesPlayed = Number(
+    const played = Number(
       rowInfo.childNodes[8]
-        // @ts-ignore
         .getElementsByTagName('span')[0]
         .innerHTML.replace(',', '')
         .replace(',', ''), // there's only going to be max two commas...
     );
 
     const winPercent = parsePercent(
-      // @ts-ignore
       rowInfo.childNodes[4].getElementsByTagName('b')[0].innerHTML,
       true,
     );
@@ -61,20 +65,19 @@ import * as defaultKeyNames from '../../defaultKeyNames.json';
       true,
     );
 
-    if (champData[name] == null) {
-      champData[name] = {
-        played: gamesPlayed,
-        won: gamesPlayed * winPercent,
+    if (champDataObject[name] == null) {
+      champDataObject[name] = {
+        played,
+        won: played * winPercent,
       };
     } else {
-      champData[name].played += gamesPlayed;
-      champData[name].won += gamesPlayed * winPercent;
+      champDataObject[name].played += played;
+      champDataObject[name].won += played * winPercent;
     }
-    return champData;
-  }, {});
+  }
 
-  const totalGames = Object.keys(champDataObject).reduce(
-    (acc, champName) => champDataObject[champName].played + acc,
+  const totalGames = Object.values(champDataObject).reduce(
+    (acc, { played }) => played + acc,
     0,
   );
 
@@ -109,7 +112,7 @@ import * as defaultKeyNames from '../../defaultKeyNames.json';
   //         .innerHTML.replace(/(^\d+)(.+$)/i, '$1'),
   //     ),
   // );
-  openWebpage(championDataArray, true);
+  await openWebpage(championDataArray);
   // {
   // [defaultKeyNames.TIME]: time.valueOf(),
   // [defaultKeyNames.ELO]: document.querySelector('#react-select-9--value-item')

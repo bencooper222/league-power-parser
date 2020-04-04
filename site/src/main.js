@@ -1,4 +1,4 @@
-import * as defaultKeyNames from '../../defaultKeyNames.json';
+import defaultKeyNames from '../../defaultKeyNames';
 
 const getParameterByName = (name, url) => {
   if (!url) url = window.location.href;
@@ -15,51 +15,41 @@ const roundToDecimal = (string, decimals) => {
   return parseFloat(parseFloat(string).toFixed(decimals));
 };
 
-let data = JSON.parse(getParameterByName('data')); // data for JSON, d for base64
-data = data == null ? JSON.parse(atob(getParameterByName('d'))) : data;
-const table = document.getElementById('champs');
+(async () => {
+  let data;
+  const sParam = getParameterByName('s');
+  if (sParam != null) {
+    data = {
+      d: await (
+        await fetch(`https://kvdb.io/${defaultKeyNames.KEYVAL}/${sParam}`)
+      )
+        .json()
+        .catch(err => void console.error(err)),
+    };
+  } else {
+    data = JSON.parse(getParameterByName('data')); // data for JSON, d for base64
+    data = data == null ? JSON.parse(atob(getParameterByName('d'))) : data;
+  }
+  const table = document.getElementById('champs');
+  console.table(data.d);
 
-console.log(data);
-data.d.forEach(champ => {
-  const row = table.insertRow(-1);
-  row.insertCell(-1).innerHTML = champ[defaultKeyNames.NAME];
+  data.d.forEach(champ => {
+    const row = table.insertRow(-1);
+    row.insertCell(-1).innerHTML = champ[defaultKeyNames.NAME];
 
-  row.insertCell(-1).innerHTML = `${roundToDecimal(
-    champ[defaultKeyNames.WIN_PERCENT],
-    2,
-  )}%`;
+    row.insertCell(-1).innerHTML = `${roundToDecimal(
+      champ[defaultKeyNames.WIN_PERCENT],
+      2,
+    )}%`;
 
-  row.insertCell(-1).innerHTML = `${roundToDecimal(
-    champ[defaultKeyNames.PLAY_PERCENT],
-    2,
-  )}%`;
+    row.insertCell(-1).innerHTML = `${roundToDecimal(
+      champ[defaultKeyNames.PLAY_PERCENT],
+      2,
+    )}%`;
 
-  row.insertCell(-1).innerHTML = roundToDecimal(
-    champ[defaultKeyNames.POWER],
-    2,
-  );
-});
-
-// (data => {
-//   const body = document.getElementsByTagName('div')[0];
-
-//   const eloParagraph = document.createElement('p'),
-//     regionParagraph = document.createElement('p'),
-//     patchParagraph = document.createElement('p'),
-//     timeParagraph = document.createElement('p'),
-//     queueParagraph = document.createElement('p');
-//   const date = new Date(data[defaultKeyNames.TIME]);
-//   (eloParagraph.innerHTML = `Elo: ${data[defaultKeyNames.ELO]}`),
-//     (regionParagraph.innerHTML = `Region: ${data[defaultKeyNames.REGION]}`),
-//     (patchParagraph.innerHTML = `Patch: ${data[defaultKeyNames.PATCH]}`),
-//     (timeParagraph.innerHTML = `Last updated: ${date.getMonth()}/${date.getDate()}/${date.getFullYear()} ${date.getHours()}:${
-//       date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
-//     }`),
-//     (queueParagraph.innerHTML = `Queue: ${data[defaultKeyNames.QUEUE]}`);
-
-//   body.prepend(eloParagraph),
-//     body.prepend(regionParagraph),
-//     body.prepend(patchParagraph),
-//     body.prepend(timeParagraph),
-//     body.prepend(queueParagraph);
-// })(data);
+    row.insertCell(-1).innerHTML = roundToDecimal(
+      champ[defaultKeyNames.POWER],
+      2,
+    );
+  });
+})();
