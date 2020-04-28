@@ -55,12 +55,12 @@ import defaultKeyNames from '../../defaultKeyNames';
         .replace(',', ''), // there's only going to be max two commas...
     );
 
-    const winPercent = parsePercent(
+    const wonGames = parsePercent(
       rowInfo.childNodes[4].getElementsByTagName('b')[0].innerHTML,
       true,
     );
 
-    const banPercent = parsePercent(
+    const bannedGames = parsePercent(
       rowInfo.childNodes[6].getElementsByTagName('span')[0].innerHTML,
       true,
     );
@@ -68,11 +68,11 @@ import defaultKeyNames from '../../defaultKeyNames';
     if (champDataObject[name] == null) {
       champDataObject[name] = {
         played,
-        won: played * winPercent,
+        won: played * wonGames,
       };
     } else {
       champDataObject[name].played += played;
-      champDataObject[name].won += played * winPercent;
+      champDataObject[name].won += played * wonGames;
     }
   }
 
@@ -86,6 +86,13 @@ import defaultKeyNames from '../../defaultKeyNames';
     .reduce((acc, champName) => {
       const { won, played } = champDataObject[champName];
 
+      const winPercent = won / played / 100;
+      const confidenceIntervalDistributionArea = 1.96; // look up in a z-score table
+      const stdev = ((winPercent * (1 - winPercent)) / played) ** 0.5;
+
+      const lower = winPercent - stdev * confidenceIntervalDistributionArea;
+      const upper = winPercent + stdev * confidenceIntervalDistributionArea;
+
       return acc.concat([
         Array.from({
           [defaultKeyNames.WIN_PERCENT]: won / played,
@@ -95,7 +102,9 @@ import defaultKeyNames from '../../defaultKeyNames';
             (100 * played) / totalGames,
           ),
           [defaultKeyNames.NAME]: champName,
-          length: 4, // to allow for arrayification
+          [defaultKeyNames.CONFIDENCE_INTERVAL_LOWER]: lower,
+          [defaultKeyNames.CONFIDENCE_INTERVAL_UPPER]: upper,
+          length: 6, // to allow for arrayification
         }),
       ]);
     }, [])

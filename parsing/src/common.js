@@ -24,6 +24,8 @@ export const displayResults = championData => {
       'Win Percent': el[defaultKeyNames.WIN_PERCENT],
       'Play Percent': el[defaultKeyNames.PLAY_PERCENT],
       Power: el[defaultKeyNames.POWER],
+      '95% CI Lower Bound': el[defaultKeyNames.CONFIDENCE_INTERVAL_LOWER],
+      '95% CI Upper Bound': el[defaultKeyNames.CONFIDENCE_INTERVAL_UPPER],
     };
   });
   console.table(transformed);

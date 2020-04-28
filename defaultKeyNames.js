@@ -4,6 +4,8 @@ export default {
   WIN_PERCENT: 1,
   POWER: 2,
   NAME: 3,
+  CONFIDENCE_INTERVAL_LOWER: 4,
+  CONFIDENCE_INTERVAL_UPPER: 5,
 
   ELO: 'e',
   REGION: 'g',
