@@ -8,7 +8,10 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "node-sass": "^4.14.0",
+    "@babel/preset-env": "^7.10.2",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "node-sass": "^4.14.1",
     "parcel-bundler": "^1.12.4",
     "prettier": "^1.19.1"
   },
@@ -22,10 +25,7 @@
     "sha1": "^1.1.1"
   },
   "browserslist": [
-    "edge > 15",
-    "firefox > 52",
-    "chrome > 55",
-    "safari > 10.1",
-    "opera > 42"
+    "last 2 Chrome versions",
+    "last 2 Firefox versions"
   ]
 }

@@ -112,16 +112,17 @@ import defaultKeyNames from '../../defaultKeyNames';
 
   displayResults(championDataArray);
 
-  // const time = new Date();
-  // time.setHours(
-  //   time.getHours() -
-  //     Number(
-  //       document
-  //         .querySelector('.subtitle > div:nth-child(1) > strong:nth-child(4)')
-  //         .innerHTML.replace(/(^\d+)(.+$)/i, '$1'),
-  //     ),
-  // );
-  await openWebpage(championDataArray);
+  const date = new Date();
+  const datetime = date.toDateString() + ' ' + date.toTimeString();
+
+  const patch = document
+    .querySelector('h1.tier-list > span:nth-child(1) > span:nth-child(2)')
+    .innerHTML.split(' ')[1];
+
+  const queue = document.querySelector(
+    '.stats-page_subheader > div:nth-child(1) > strong:nth-child(1)',
+  ).innerHTML;
+  await openWebpage(championDataArray, datetime, patch, queue);
   // {
   // [defaultKeyNames.TIME]: time.valueOf(),
   // [defaultKeyNames.ELO]: document.querySelector('#react-select-9--value-item')

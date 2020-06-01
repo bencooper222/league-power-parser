@@ -33,20 +33,29 @@ export const displayResults = championData => {
 
 export const openWebpage = async (
   championData,
+  datetime = '',
+  patch = '',
+  queue = '',
   page = 'https://power.benc.me',
 ) => {
   const NUM_CHAMPS = 30;
   const STORAGE_URL = `https://kvdb.io/${defaultKeyNames.KEYVAL}`;
+  const PREFIX = 'v1'; // change accordingly
 
-  const json = championData.slice(0, NUM_CHAMPS);
+  const json = {
+    datetime,
+    patch,
+    queue,
+    champions: championData.slice(0, NUM_CHAMPS),
+  };
 
   const jsonString = JSON.stringify(json);
   const hash = sha1(jsonString);
 
-  await fetch(`${STORAGE_URL}/${hash}`, {
+  await fetch(`${STORAGE_URL}/${PREFIX}-${hash}`, {
     method: 'POST',
     body: jsonString,
   });
 
-  window.open(`${page}/?s=${hash}`, '_blank');
+  window.open(`${page}/?s=${PREFIX}-${hash}`, '_blank');
 };
