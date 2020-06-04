@@ -28,6 +28,25 @@ const setExtraInfo = (datetime = '', patch = '', queue = '', elo = '') => {
   if (elo !== '') eloContainer.innerHTML = `Elo: ${elo}`;
 };
 
+const drawCanvas = champions => {
+  const canvas = document.getElementsByTagName('canvas')[0];
+  const toBeHeight = document.getElementById('champs').offsetHeight;
+  console.log('toBeHeight', toBeHeight);
+  canvas.height = toBeHeight;
+
+  const cellHeight = document.getElementsByTagName('td')[0].offsetHeight;
+  const ctx = canvas.getContext('2d');
+
+  ctx.fillStyle = '#FF0000';
+
+  let drawHeight = cellHeight / 2 + cellHeight;
+  for (let i = 0; i < champions.length; i++) {
+    ctx.fillRect(0, drawHeight, canvas.width, 1);
+    drawHeight += cellHeight + 0.35;
+    console.log(drawHeight);
+  }
+};
+
 (async () => {
   let data;
   const sParam = getParameterByName('s');
@@ -83,4 +102,6 @@ const setExtraInfo = (datetime = '', patch = '', queue = '', elo = '') => {
       2,
     );
   });
+
+  drawCanvas(data.d);
 })();

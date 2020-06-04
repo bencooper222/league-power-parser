@@ -15,6 +15,7 @@ body {
       padding: 4px;
     }
     margin-top: 12px;
+    display: inline-block;
   }
 
   p {
@@ -25,5 +26,9 @@ body {
 
   div {
     display: inline-block;
+  }
+  canvas {
+    display: inline-block;
+    height: auto;
   }
 }

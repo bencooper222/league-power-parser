@@ -88,9 +88,13 @@ import defaultKeyNames from '../../defaultKeyNames';
     .reduce((acc, champName) => {
       const { won, played } = champDataObject[champName];
 
-      const winPercent = won / played / 100;
       const confidenceIntervalDistributionArea = 1.96; // look up in a z-score table
-      const stdev = ((winPercent * (1 - winPercent)) / played) ** 0.5;
+
+      const winPercent = won / played / 100;
+      const winVariance = (winPercent * (1 - winPercent)) / played;
+
+      const playPercent = played / totalGames;
+      const playVariance = (playPercent * (1 - playPercent)) / played;
 
       const lower = winPercent - stdev * confidenceIntervalDistributionArea;
       const upper = winPercent + stdev * confidenceIntervalDistributionArea;
