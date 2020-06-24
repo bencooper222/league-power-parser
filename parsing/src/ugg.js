@@ -65,6 +65,8 @@ import defaultKeyNames from '../../defaultKeyNames';
       true,
     );
 
+    // console.log('bannedGames', bannedGames);
+
     if (champDataObject[name] == null) {
       champDataObject[name] = {
         played,
@@ -115,13 +117,25 @@ import defaultKeyNames from '../../defaultKeyNames';
   const date = new Date();
   const datetime = date.toDateString() + ' ' + date.toTimeString();
 
-  const patch = document
-    .querySelector('h1.tier-list > span:nth-child(1) > span:nth-child(2)')
-    .innerHTML.split(' ')[1];
+  let patch = '?',
+    queue = '?';
 
-  const queue = document.querySelector(
-    '.stats-page_subheader > div:nth-child(1) > strong:nth-child(1)',
-  ).innerHTML;
+  try {
+    patch = document
+      .querySelector('h1.tier-list > span:nth-child(1)')
+      .innerHTML.split(' ')
+      .slice(-1)[0];
+  } catch (_) {
+    console.error("Couldn't parse patch");
+  }
+
+  try {
+    queue = document.querySelector(
+      '.stats-page_subheader > div:nth-child(1) > strong:nth-child(1)',
+    ).innerHTML;
+  } catch (_) {
+    console.error("Couldn't parse queue");
+  }
   await openWebpage(championDataArray, datetime, patch, queue);
   // {
   // [defaultKeyNames.TIME]: time.valueOf(),
