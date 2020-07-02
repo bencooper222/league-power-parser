@@ -1,6 +1,5 @@
 // @ts-ignore
 import defaultKeyNames from '../../defaultKeyNames';
-import sha1 from 'sha1';
 
 export const parsePercent = (percentString, replacePercent = false) => {
   const percent = replacePercent
@@ -31,6 +30,16 @@ export const displayResults = championData => {
   console.table(transformed);
 };
 
+// I love modern browsers
+// from https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest
+const sha1 = async message => {
+  const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
+  const hashBuffer = await crypto.subtle.digest('SHA-1', msgUint8); // hash the message
+  const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
+  return hashHex;
+};
+
 export const openWebpage = async (
   championData,
   datetime = '',
@@ -50,7 +59,7 @@ export const openWebpage = async (
   };
 
   const jsonString = JSON.stringify(json);
-  const hash = sha1(jsonString);
+  const hash = await sha1(jsonString);
 
   await fetch(`${STORAGE_URL}/${PREFIX}-${hash}`, {
     method: 'POST',
