@@ -45,16 +45,18 @@ export const openWebpage = async (
   datetime = '',
   patch = '',
   queue = '',
+  elo = '',
   page = 'https://power.benc.me',
 ) => {
   const NUM_CHAMPS = 30;
   const STORAGE_URL = `https://kvdb.io/${defaultKeyNames.KEYVAL}`;
-  const PREFIX = 'v1'; // change accordingly
+  const PREFIX = 'v2'; // change accordingly
 
   const json = {
     datetime,
     patch,
     queue,
+    elo,
     champions: championData.slice(0, NUM_CHAMPS),
   };
 

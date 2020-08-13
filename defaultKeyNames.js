@@ -1,3 +1,4 @@
+// I'm pretty sure this is no longer used except for parsing old pages
 export default {
   KEYVAL: 'NEjFQLMGv57omxxph5uoht',
   PLAY_PERCENT: 0,

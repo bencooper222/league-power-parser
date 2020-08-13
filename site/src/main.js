@@ -3,6 +3,7 @@ import defaultKeyNames from '../../defaultKeyNames';
 const datetimeContainer = document.getElementById('datetime');
 const patchContainer = document.getElementById('patch');
 const queueContainer = document.getElementById('queue');
+const eloContainer = document.getElementById('elo');
 
 const getParameterByName = (name, url) => {
   if (!url) url = window.location.href;
@@ -19,10 +20,12 @@ const roundToDecimal = (string, decimals) => {
   return parseFloat(parseFloat(string).toFixed(decimals));
 };
 
-const setExtraInfo = (datetime = '', patch = '', queue = '') => {
+const setExtraInfo = (datetime = '', patch = '', queue = '', elo = '') => {
+  console.log(elo);
   if (datetime !== '') datetimeContainer.innerHTML = `Datetime: ${datetime}`;
   if (patch !== '') patchContainer.innerHTML = `Patch: ${patch}`;
   if (queue !== '') queueContainer.innerHTML = `Queue: ${queue}`;
+  if (elo !== '') eloContainer.innerHTML = `Elo: ${elo}`;
 };
 
 (async () => {
@@ -43,16 +46,16 @@ const setExtraInfo = (datetime = '', patch = '', queue = '') => {
     console.log(fetched);
     data = { d: null };
 
-    switch (version) {
-      case 'v1':
-        const { datetime, patch, queue, champions } = fetched;
-        setExtraInfo(datetime, patch, queue);
-        data.d = champions;
-
-        break;
-      case '':
-        data.d = fetched;
-        break;
+    if (version === 'v1') {
+      const { datetime, patch, queue, champions } = fetched;
+      setExtraInfo(datetime, patch, queue);
+      data.d = champions;
+    } else if (version === 'v2') {
+      const { datetime, patch, queue, champions, elo } = fetched;
+      setExtraInfo(datetime, patch, queue, elo);
+      data.d = champions;
+    } else if (version === '') {
+      data.d = fetched;
     }
   } else {
     data = JSON.parse(getParameterByName('data')); // data for JSON, d for base64

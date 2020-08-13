@@ -118,7 +118,8 @@ import defaultKeyNames from '../../defaultKeyNames';
   const datetime = date.toDateString() + ' ' + date.toTimeString();
 
   let patch = '?',
-    queue = '?';
+    queue = '?',
+    elo = '?';
 
   try {
     patch = document
@@ -136,7 +137,16 @@ import defaultKeyNames from '../../defaultKeyNames';
   } catch (_) {
     console.error("Couldn't parse queue");
   }
-  await openWebpage(championDataArray, datetime, patch, queue);
+
+  try {
+    elo = document.querySelector(
+      'div.filter-select_rank:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > span:nth-child(2)',
+    ).innerHTML;
+  } catch (_) {
+    console.error("Couldn't parse rank/elo");
+  }
+
+  await openWebpage(championDataArray, datetime, patch, queue, elo);
   // {
   // [defaultKeyNames.TIME]: time.valueOf(),
   // [defaultKeyNames.ELO]: document.querySelector('#react-select-9--value-item')
