@@ -70,3 +70,24 @@ export const openWebpage = async (
 
   window.open(`${page}/?s=${PREFIX}-${hash}`, '_blank');
 };
+
+export class Timer {
+  #startTime;
+
+  start() {
+    if (this.#startTime != undefined) throw new Error('already started');
+    this.#startTime = Date.now();
+  }
+
+  stop() {
+    if (this.#startTime == undefined) throw new Error('never started');
+    const rtn = Date.now() - this.#startTime;
+
+    this.#startTime = undefined;
+    return rtn;
+  }
+
+  clear() {
+    void stop();
+  }
+}

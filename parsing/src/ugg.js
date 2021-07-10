@@ -3,11 +3,15 @@ import {
   calculatePower,
   openWebpage,
   displayResults,
+  Timer,
 } from './common.js';
 
 import defaultKeyNames from '../../defaultKeyNames';
 
 (async () => {
+  const timer = new Timer();
+  timer.start();
+
   const downInterval = 35;
   // prepare site by force loading table
   await new Promise(res => {
@@ -145,6 +149,8 @@ import defaultKeyNames from '../../defaultKeyNames';
   } catch (_) {
     console.error("Couldn't parse rank/elo");
   }
+
+  console.log('Took: ' + timer.stop() + 'ms to calculate.');
 
   await openWebpage(championDataArray, datetime, patch, queue, elo);
   // {
