@@ -135,9 +135,8 @@ import defaultKeyNames from '../../defaultKeyNames';
   }
 
   try {
-    queue = document.querySelector(
-      '.stats-page_subheader > div:nth-child(1) > strong:nth-child(1)',
-    ).innerHTML;
+    queue = document.querySelector('span.queue-type > strong:nth-child(1)')
+      .innerHTML;
   } catch (_) {
     console.error("Couldn't parse queue");
   }
