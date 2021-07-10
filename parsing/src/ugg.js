@@ -24,7 +24,7 @@ import defaultKeyNames from '../../defaultKeyNames';
       oldLen = newLen;
       newLen = document.getElementsByClassName('rt-tr-group').length;
 
-      const LIST_LENGTH = 183; // loosely update with length of u.gg list every so often
+      const LIST_LENGTH = 234; // loosely update with length of u.gg list every so often
       if (
         (oldLen === newLen && newLen >= LIST_LENGTH) ||
         attempts++ > Math.ceil((2 * LIST_LENGTH) / 50)
