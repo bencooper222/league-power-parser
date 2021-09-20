@@ -1,4 +1,3 @@
-// @ts-ignore
 import defaultKeyNames from '../../defaultKeyNames';
 
 export const parsePercent = (percentString, replacePercent = false) => {

@@ -16,7 +16,8 @@
     "babel-preset-env": "^1.7.0",
     "node-sass": "^4.14.1",
     "parcel-bundler": "^1.12.5",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "typescript": "^4.4.3"
   },
   "scripts": {
     "ugg:bundle": "parcel build parsing/src/ugg.js --target browser --out-dir ./parsing/dist --no-source-maps --experimental-scope-hoisting  --out-file ugg.prod.js",
