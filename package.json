@@ -20,7 +20,7 @@
     "typescript": "^4.4.3"
   },
   "scripts": {
-    "ugg:bundle": "parcel build parsing/src/ugg.js --target browser --out-dir ./parsing/dist --no-source-maps --experimental-scope-hoisting  --out-file ugg.prod.js",
+    "ugg:bundle": "parcel build parsing/src/ugg.ts --target browser --out-dir ./parsing/dist --no-source-maps --experimental-scope-hoisting  --out-file ugg.prod.js",
     "ugg:listen": "parcel parsing/src/ugg.js --target browser --out-file ugg.dev.js --out-dir ./parsing/dev --no-source-maps --no-hmr",
     "site:listen": "parcel ./site/src/index.html --out-dir ./site/dev",
     "site:bundle": "parcel build ./site/src/index.html --out-dir ./site/dist"

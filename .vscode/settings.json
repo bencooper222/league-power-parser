@@ -1,4 +1,6 @@
 {
-    "npm.enableScriptExplorer": true,
-    "deepscan.enable": true
+  "npm.enableScriptExplorer": true,
+  "deepscan.enable": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
 }

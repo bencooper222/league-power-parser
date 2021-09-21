@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "lib": ["ES2020", "DOM"],
+    "allowJs": true,
+    "target": "ES2020"
+  },
+  "include": ["parsing/src"]
+}
