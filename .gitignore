@@ -66,3 +66,5 @@ parsing/dev/*
 site/dist/*
 
 site/dev/*
+
+*.tmp.js

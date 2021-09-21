@@ -88,6 +88,6 @@ export class Timer {
   }
 
   clear() {
-    void stop();
+    void this.stop();
   }
 }

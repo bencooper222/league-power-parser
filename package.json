@@ -14,12 +14,13 @@
     "@babel/preset-env": "^7.14.7",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
+    "google-closure-compiler": "^20210907.0.0",
     "node-sass": "^4.14.1",
     "parcel-bundler": "^1.12.5",
     "prettier": "^1.19.1"
   },
   "scripts": {
-    "ugg:bundle": "parcel build parsing/src/ugg.js --target browser --out-dir ./parsing/dist --no-source-maps --experimental-scope-hoisting  --out-file ugg.prod.js",
+    "ugg:bundle": "./scripts/ugg-bundle.sh",
     "ugg:listen": "parcel parsing/src/ugg.js --target browser --out-file ugg.dev.js --out-dir ./parsing/dev --no-source-maps --no-hmr",
     "site:listen": "parcel ./site/src/index.html --out-dir ./site/dev",
     "site:bundle": "parcel build ./site/src/index.html --out-dir ./site/dist"
