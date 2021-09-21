@@ -8,7 +8,7 @@ This repo provides files to parse multiple league sites for champion power. Pick
 - (DEPRECATED}Champion.gg: http://champion.gg/statistics/?league=gold#?sortBy=general.winPercent&order=descend
 - (DEPRECATED) Op.gg: http://na.op.gg/statistics/champion/
 
-The code for the deprecated sites will probably work but I won't be actively maintaining them. IMO u.gg is good enough that they're not needed. 
+The code for the deprecated sites will probably work but I won't be actively maintaining them. IMO u.gg is good enough that they're not needed.
 
 ## Example
 

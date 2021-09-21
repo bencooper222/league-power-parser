@@ -23,7 +23,8 @@
     "ugg:bundle": "./scripts/ugg-bundle.sh",
     "ugg:listen": "parcel parsing/src/ugg.js --target browser --out-file ugg.dev.js --out-dir ./parsing/dev --no-source-maps --no-hmr",
     "site:listen": "parcel ./site/src/index.html --out-dir ./site/dev",
-    "site:bundle": "parcel build ./site/src/index.html --out-dir ./site/dist"
+    "site:bundle": "parcel build ./site/src/index.html --out-dir ./site/dist",
+    "format": "prettier --write parsing/src/*.js site/src/* *.md defaultKeyNames.js"
   },
   "dependencies": {},
   "browserslist": [

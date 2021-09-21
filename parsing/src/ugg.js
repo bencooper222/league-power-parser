@@ -126,10 +126,10 @@ import defaultKeyNames from '../../defaultKeyNames';
     elo = '?';
 
   try {
-    patch = document
-      .querySelector('h1.tier-list > span:nth-child(1)')
-      .innerHTML.split(' ')
-      .slice(-1)[0];
+    const rawPatch = document.querySelector('.header-patch').innerHTML;
+    const periodIndex = rawPatch.indexOf('.');
+
+    patch = rawPatch.slice(periodIndex - 2);
   } catch (_) {
     console.error("Couldn't parse patch");
   }

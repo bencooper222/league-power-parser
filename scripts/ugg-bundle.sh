@@ -7,9 +7,9 @@ parcel build parsing/src/ugg.js \
     --experimental-scope-hoisting \
     --out-file ugg.tmp.js
 
+# advanced mode ruins variables
+# and externs are stupid
 google-closure-compiler \
-    # advanced mode ruins variables
-    # and externs are stupid
     -O SIMPLE parsing/dist/ugg.tmp.js \
     --js_output_file parsing/dist/ugg.prod.js \
     --language_out ECMASCRIPT_2019
