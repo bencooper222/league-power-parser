@@ -102,7 +102,6 @@ import defaultKeyNames from '../../defaultKeyNames';
     const upper = winPercent + stdev * confidenceIntervalDistributionArea;
 
     championDataArray.push(
-      ...[
         Array.from({
           [defaultKeyNames.WIN_PERCENT]: won / played,
           [defaultKeyNames.PLAY_PERCENT]: (100 * played) / totalGames,
@@ -115,7 +114,7 @@ import defaultKeyNames from '../../defaultKeyNames';
           [defaultKeyNames.CONFIDENCE_INTERVAL_UPPER]: upper,
           length: 6, // to allow for arrayification
         }),
-      ],
+      
     );
   }
 
