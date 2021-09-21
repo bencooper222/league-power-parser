@@ -14,6 +14,7 @@
     "@babel/preset-env": "^7.14.7",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
+    "google-closure-compiler": "^20210907.0.0",
     "node-sass": "^4.14.1",
     "parcel-bundler": "^1.12.5",
     "prettier": "^1.19.1"
