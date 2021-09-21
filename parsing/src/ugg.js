@@ -88,18 +88,21 @@ import defaultKeyNames from '../../defaultKeyNames';
   );
 
   // manipulate data into proper format
-  const championDataArray = Object.keys(champDataObject)
-    .reduce((acc, champName) => {
-      const { won, played } = champDataObject[champName];
+  const champNames = Object.keys(champDataObject);
+  const championDataArray = [];
 
-      const winPercent = won / played / 100;
-      const confidenceIntervalDistributionArea = 1.96; // look up in a z-score table
-      const stdev = ((winPercent * (1 - winPercent)) / played) ** 0.5;
+  for (const champName of champNames) {
+    const { won, played } = champDataObject[champName];
 
-      const lower = winPercent - stdev * confidenceIntervalDistributionArea;
-      const upper = winPercent + stdev * confidenceIntervalDistributionArea;
+    const winPercent = won / played / 100;
+    const confidenceIntervalDistributionArea = 1.96; // look up in a z-score table
+    const stdev = ((winPercent * (1 - winPercent)) / played) ** 0.5;
 
-      return acc.concat([
+    const lower = winPercent - stdev * confidenceIntervalDistributionArea;
+    const upper = winPercent + stdev * confidenceIntervalDistributionArea;
+
+    championDataArray.push(
+      ...[
         Array.from({
           [defaultKeyNames.WIN_PERCENT]: won / played,
           [defaultKeyNames.PLAY_PERCENT]: (100 * played) / totalGames,
@@ -112,9 +115,13 @@ import defaultKeyNames from '../../defaultKeyNames';
           [defaultKeyNames.CONFIDENCE_INTERVAL_UPPER]: upper,
           length: 6, // to allow for arrayification
         }),
-      ]);
-    }, [])
-    .sort((a, b) => b[defaultKeyNames.POWER] - a[defaultKeyNames.POWER]);
+      ],
+    );
+  }
+
+  championDataArray.sort(
+    (a, b) => b[defaultKeyNames.POWER] - a[defaultKeyNames.POWER],
+  );
 
   displayResults(championDataArray);
 
@@ -152,18 +159,4 @@ import defaultKeyNames from '../../defaultKeyNames';
   console.log('Took: ' + timer.stop() + 'ms to calculate.');
 
   await openWebpage(championDataArray, datetime, patch, queue, elo);
-  // {
-  // [defaultKeyNames.TIME]: time.valueOf(),
-  // [defaultKeyNames.ELO]: document.querySelector('#react-select-9--value-item')
-  //   .innerHTML,
-  // [defaultKeyNames.QUEUE]: document.querySelector(
-  //   '#react-select-10--value-item',
-  // ).innerHTML,
-  // [defaultKeyNames.PATCH]: document.querySelector(
-  //   '#react-select-11--value > div:nth-child(1) > span:nth-child(1)',
-  // ).innerHTML,
-  // [defaultKeyNames.REGION]: document.querySelector(
-  //   '#react-select-12--value-item',
-  // ).innerHTML,
-  // }); //base64 encode
 })();
