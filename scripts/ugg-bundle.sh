@@ -8,6 +8,6 @@ parcel build parsing/src/ugg.js \
     --out-file ugg.tmp.js
 
 google-closure-compiler \
-    -O ADVANCED parsing/dist/ugg.tmp.js \
+    -O SIMPLE parsing/dist/ugg.tmp.js \
     --js_output_file parsing/dist/ugg.prod.js \
     --language_out ECMASCRIPT_2019
