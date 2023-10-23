@@ -43,6 +43,8 @@ import defaultKeyNames from '../../defaultKeyNames';
   let totalGames = 0;
   for (const row of tableNodes) {
     const rowInfo = row.childNodes[0];
+    console.log(rowInfo)
+
     const name = rowInfo.childNodes[2].getElementsByClassName(
       'champion-name',
     )[0].innerHTML;
@@ -50,7 +52,7 @@ import defaultKeyNames from '../../defaultKeyNames';
     const played = Number(
       rowInfo.childNodes[8]
         .getElementsByTagName('span')[0]
-        .innerHTML.l(',', ''),
+        .innerHTML.replaceAll(',', ''),
     );
 
     const wonGames = parsePercent(
