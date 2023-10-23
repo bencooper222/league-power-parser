@@ -102,19 +102,18 @@ import defaultKeyNames from '../../defaultKeyNames';
     const upper = winPercent + stdev * confidenceIntervalDistributionArea;
 
     championDataArray.push(
-        Array.from({
-          [defaultKeyNames.WIN_PERCENT]: won / played,
-          [defaultKeyNames.PLAY_PERCENT]: (100 * played) / totalGames,
-          [defaultKeyNames.POWER]: calculatePower(
-            won / played,
-            (100 * played) / totalGames,
-          ),
-          [defaultKeyNames.NAME]: champName,
-          [defaultKeyNames.CONFIDENCE_INTERVAL_LOWER]: lower,
-          [defaultKeyNames.CONFIDENCE_INTERVAL_UPPER]: upper,
-          length: 6, // to allow for arrayification
-        }),
-      
+      Array.from({
+        [defaultKeyNames.WIN_PERCENT]: won / played,
+        [defaultKeyNames.PLAY_PERCENT]: (100 * played) / totalGames,
+        [defaultKeyNames.POWER]: calculatePower(
+          won / played,
+          (100 * played) / totalGames,
+        ),
+        [defaultKeyNames.NAME]: champName,
+        [defaultKeyNames.CONFIDENCE_INTERVAL_LOWER]: lower,
+        [defaultKeyNames.CONFIDENCE_INTERVAL_UPPER]: upper,
+        length: 6, // to allow for arrayification
+      }),
     );
   }
 
