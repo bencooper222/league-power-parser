@@ -9,10 +9,9 @@ import {
 import defaultKeyNames from '../../defaultKeyNames';
 
 (async () => {
-  const timer = new Timer();
-  timer.start();
+  const start = Date.now();
 
-  const downInterval = 35;
+  const downInterval = 30;
   // prepare site by force loading table
   await new Promise(res => {
     let oldLen = document.getElementsByClassName('rt-tr-group').length,
@@ -24,7 +23,7 @@ import defaultKeyNames from '../../defaultKeyNames';
       oldLen = newLen;
       newLen = document.getElementsByClassName('rt-tr-group').length;
 
-      const LIST_LENGTH = 234; // loosely update with length of u.gg list every so often
+      const LIST_LENGTH = 243; // loosely update with length of u.gg list every so often
       if (
         (oldLen === newLen && newLen >= LIST_LENGTH) ||
         attempts++ > Math.ceil((2 * LIST_LENGTH) / 50)
@@ -39,15 +38,13 @@ import defaultKeyNames from '../../defaultKeyNames';
   document.body.scrollTop = document.documentElement.scrollTop = 0; // https://www.youtube.com/watch?v=bmMhAMnrJDA
 
   // gather data
-  const tableNodes = Array.from(
-    document.getElementsByClassName('rt-tbody')[0].childNodes,
-  );
+  const tableNodes = document.getElementsByClassName('rt-tbody')[0].childNodes;
   const champDataObject = {};
-
-  for (let i = 0; i < tableNodes.length; i++) {
-    const row = tableNodes[i];
-
+  let totalGames = 0;
+  for (const row of tableNodes) {
     const rowInfo = row.childNodes[0];
+    console.log(rowInfo)
+
     const name = rowInfo.childNodes[2].getElementsByClassName(
       'champion-name',
     )[0].innerHTML;
@@ -55,8 +52,7 @@ import defaultKeyNames from '../../defaultKeyNames';
     const played = Number(
       rowInfo.childNodes[8]
         .getElementsByTagName('span')[0]
-        .innerHTML.replace(',', '')
-        .replace(',', ''), // there's only going to be max two commas...
+        .innerHTML.replaceAll(',', ''),
     );
 
     const wonGames = parsePercent(
@@ -69,8 +65,6 @@ import defaultKeyNames from '../../defaultKeyNames';
       true,
     );
 
-    // console.log('bannedGames', bannedGames);
-
     if (champDataObject[name] == null) {
       champDataObject[name] = {
         played,
@@ -80,12 +74,8 @@ import defaultKeyNames from '../../defaultKeyNames';
       champDataObject[name].played += played;
       champDataObject[name].won += played * wonGames;
     }
+    totalGames += played;
   }
-
-  const totalGames = Object.values(champDataObject).reduce(
-    (acc, { played }) => played + acc,
-    0,
-  );
 
   // manipulate data into proper format
   const champNames = Object.keys(champDataObject);
@@ -154,7 +144,7 @@ import defaultKeyNames from '../../defaultKeyNames';
     console.error("Couldn't parse rank/elo");
   }
 
-  console.log('Took: ' + timer.stop() + 'ms to calculate.');
+  console.log('Took: ' + (Date.now() - start) + 'ms to calculate.');
 
   await openWebpage(championDataArray, datetime, patch, queue, elo);
 })();

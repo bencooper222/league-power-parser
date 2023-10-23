@@ -5,23 +5,12 @@ const patchContainer = document.getElementById('patch');
 const queueContainer = document.getElementById('queue');
 const eloContainer = document.getElementById('elo');
 
-const getParameterByName = (name, url) => {
-  if (!url) url = window.location.href;
-  name = name.replace(/[\[\]]/g, '\\$&');
-  const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-    results = regex.exec(url);
-  if (!results) return null;
-  if (!results[2]) return '';
-  return decodeURIComponent(results[2].replace(/\+/g, ' '));
-};
-
 // maybe import from common.js someday
 const roundToDecimal = (string, decimals) => {
   return parseFloat(parseFloat(string).toFixed(decimals));
 };
 
 const setExtraInfo = (datetime = '', patch = '', queue = '', elo = '') => {
-  console.log(elo);
   if (datetime !== '') datetimeContainer.innerHTML = `Datetime: ${datetime}`;
   if (patch !== '') patchContainer.innerHTML = `Patch: ${patch}`;
   if (queue !== '') queueContainer.innerHTML = `Queue: ${queue}`;
@@ -30,7 +19,7 @@ const setExtraInfo = (datetime = '', patch = '', queue = '', elo = '') => {
 
 (async () => {
   let data;
-  const sParam = getParameterByName('s');
+  const sParam = new URL(window.location.href).searchParams.get('s');
 
   if (sParam != null) {
     const split = sParam.split('-');
@@ -64,7 +53,7 @@ const setExtraInfo = (datetime = '', patch = '', queue = '', elo = '') => {
   const table = document.getElementById('champs');
   console.table(data.d);
 
-  data.d.forEach(champ => {
+  for (const champ of data.d) {
     const row = table.insertRow(-1);
     row.insertCell(-1).innerHTML = champ[defaultKeyNames.NAME];
 
@@ -82,5 +71,5 @@ const setExtraInfo = (datetime = '', patch = '', queue = '', elo = '') => {
       champ[defaultKeyNames.POWER],
       2,
     );
-  });
+  }
 })();

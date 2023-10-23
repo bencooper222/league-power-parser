@@ -12,4 +12,4 @@ parcel build parsing/src/ugg.js \
 google-closure-compiler \
     -O SIMPLE parsing/dist/ugg.tmp.js \
     --js_output_file parsing/dist/ugg.prod.js \
-    --language_out ECMASCRIPT_2019
+    --language_out ECMASCRIPT_2021
