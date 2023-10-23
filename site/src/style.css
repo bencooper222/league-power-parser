@@ -1,0 +1,35 @@
+:root {
+  --night: #000414;
+  --nightText: #cbcbcb;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--night);
+  color: var(--nightText);
+}
+
+body table {
+  border-collapse: collapse;
+  border: 1px solid var(--nightText);
+}
+
+body table td,
+body table th {
+  border: 1px solid var(--nightText);
+  padding: 4px;
+}
+
+body table {
+  margin-top: 12px;
+}
+
+body p {
+  margin-top: 0px;
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+
+body div {
+  display: inline-block;
+}
